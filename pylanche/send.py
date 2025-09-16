@@ -5,7 +5,7 @@ from azure.eventhub import EventData
 from azure.eventhub.aio import EventHubProducerClient
 
 async def run():
-    # Read the configuration file
+    # Read the configuration file (TODO: replace with environment variables)
     with open("./pylanche/event_hub.json", 'r') as file:
         event_hub_config = json.load(file)
         EVENT_HUB_CONNECTION_STR = event_hub_config['EVENT_HUB_CONNECTION_STR']
