@@ -20,6 +20,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     if name:
         try:
+            # Receive events from the event hub.
             pylanche.receive()
         except Exception as error:
             logging.error(str(error))
