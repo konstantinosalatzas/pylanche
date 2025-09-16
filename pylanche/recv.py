@@ -3,11 +3,6 @@ import json
 
 from azure.eventhub.aio import EventHubConsumerClient
 
-with open('./pylanche/event_hub.json', 'r') as file:
-    event_hub_config = json.load(file)
-    EVENT_HUB_CONNECTION_STR = event_hub_config['EVENT_HUB_CONNECTION_STR']
-    EVENT_HUB_NAME = event_hub_config['EVENT_HUB_NAME']
-
 async def on_event(partition_context, event):
     # Print the event data.
     print(
@@ -20,7 +15,7 @@ async def on_event(partition_context, event):
     # that it has already read when you run it next time.
     await partition_context.update_checkpoint(event)
 
-async def main():
+async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
     # Create a consumer client for the event hub.
     client = EventHubConsumerClient.from_connection_string(
         EVENT_HUB_CONNECTION_STR,
@@ -32,5 +27,10 @@ async def main():
         # partition (starting_position: "-1")
         await client.receive(on_event=on_event, starting_position="-1")
 
-if __name__ == "__main__":
-    asyncio.run(main())
+def receive():
+    with open('./pylanche/event_hub.json', 'r') as file:
+        event_hub_config = json.load(file)
+        EVENT_HUB_CONNECTION_STR = event_hub_config['EVENT_HUB_CONNECTION_STR']
+        EVENT_HUB_NAME = event_hub_config['EVENT_HUB_NAME']
+
+    asyncio.run(main(EVENT_HUB_CONNECTION_STR, EVENT_HUB_NAME=))
