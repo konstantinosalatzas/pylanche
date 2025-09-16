@@ -1,6 +1,8 @@
 import azure.functions as func
 import logging
 
+import pylanche
+
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 @app.route(route="http_trigger")
@@ -15,6 +17,12 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             pass
         else:
             name = req_body.get('name')
+
+    try:
+        # Send events to the event hub
+        pylanche.send()
+    except Exception as error:
+        logging.error(str(error))
 
     if name:
         return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
