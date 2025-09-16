@@ -1,3 +1,5 @@
+pylanche/event_hub.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

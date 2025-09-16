@@ -1,10 +1,14 @@
 import asyncio
+import json
 
 from azure.eventhub import EventData
 from azure.eventhub.aio import EventHubProducerClient
 
-EVENT_HUB_CONNECTION_STR = "EVENT_HUB_CONNECTION_STR"
-EVENT_HUB_NAME = "EVENT_HUB_NAME"
+# Read the configuration file
+with open("./pylanche/event_hub.json", 'r') as file:
+    event_hub_config = json.load(file)
+    EVENT_HUB_CONNECTION_STR = event_hub_config['EVENT_HUB_CONNECTION_STR']
+    EVENT_HUB_NAME = event_hub_config['EVENT_HUB_NAME']
 
 async def run():
     # Create a producer client to send messages to the event hub.
