@@ -17,10 +17,6 @@ async def on_event(partition_context, event):
         )
     )
 
-    # Update the checkpoint so that the program doesn't read the events
-    # that it has already read when you run it next time.
-    await partition_context.update_checkpoint(event)
-
 async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
     # Create a consumer client for the event hub.
     client = EventHubConsumerClient.from_connection_string(
@@ -32,6 +28,7 @@ async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
         # Call the receive method. Read from the beginning of the
         # partition (starting_position: "-1")
         await client.receive(on_event=on_event, starting_position="-1")
+
 
 def receive():
     # Read the configuration file. (TODO: replace with environment variables)
