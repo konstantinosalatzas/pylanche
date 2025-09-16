@@ -18,16 +18,20 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         else:
             name = req_body.get('name')
 
-    try:
-        # Send events to the event hub.
-        pylanche.send()
-        logging.info('The function sent events to the event hub.')
-    except Exception as error:
-        logging.error(str(error))
-
     if name:
+        try:
+            # Receive events from the event hub.
+            pylanche.receive()
+        except Exception as error:
+            logging.error(str(error))
         return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
     else:
+        try:
+            # Send events to the event hub.
+            pylanche.send()
+            logging.info('The function sent events to the event hub.')
+        except Exception as error:
+            logging.error(str(error))
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
              status_code=200
