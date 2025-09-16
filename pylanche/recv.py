@@ -33,4 +33,4 @@ def receive():
         EVENT_HUB_CONNECTION_STR = event_hub_config['EVENT_HUB_CONNECTION_STR']
         EVENT_HUB_NAME = event_hub_config['EVENT_HUB_NAME']
 
-    asyncio.run(main(EVENT_HUB_CONNECTION_STR, EVENT_HUB_NAME=))
+    asyncio.run(main(EVENT_HUB_CONNECTION_STR, EVENT_HUB_NAME))
