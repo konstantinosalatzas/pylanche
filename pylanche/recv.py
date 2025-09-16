@@ -37,7 +37,7 @@ async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
         recv_task.cancel()  # stop receiving
 
 def receive():
-    # Read the configuration file. (TODO: replace with environment variables)
+    # Read the configuration file. (TODO: Replace with environment variables?)
     with open('./pylanche/event_hub.json', 'r') as file:
         event_hub_config = json.load(file)
         EVENT_HUB_CONNECTION_STR = event_hub_config['EVENT_HUB_CONNECTION_STR']
