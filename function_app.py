@@ -19,7 +19,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             name = req_body.get('name')
 
     try:
-        # Send events to the event hub
+        # Send events to the event hub.
         pylanche.send()
         logging.info('The function sent events to the event hub.')
     except Exception as error:
