@@ -27,8 +27,14 @@ async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
     async with client:
         # Call the receive method. Read from the beginning of the
         # partition (starting_position: "-1")
-        await client.receive(on_event=on_event, starting_position="-1")
+        #await client.receive(on_event=on_event, starting_position="-1")
 
+        # The receive method is a coroutine which will be blocking when awaited.
+        # It can be executed in an async task for non-blocking behavior, and combined with the 'close' method.
+
+        recv_task = asyncio.ensure_future(client.receive(on_event=on_event, starting_position="-1"))
+        await asyncio.sleep(3)  # keep receiving for 3 seconds
+        recv_task.cancel()  # stop receiving
 
 def receive():
     # Read the configuration file. (TODO: replace with environment variables)
