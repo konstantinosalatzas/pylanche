@@ -18,17 +18,22 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         else:
             op = req_body.get('operation')
 
+    try:
+        client = pylanche.client()
+    except Exception as error:
+        logging.error(str(error))
+
     if op == "receive":
         try:
             # Receive events from the event hub.
-            pylanche.receive()
+            client.receive()
         except Exception as error:
             logging.error(str(error))
         return func.HttpResponse('The function received events from the event hub.')
     elif op == "send":
         try:
             # Send events to the event hub.
-            pylanche.send()
+            client.send()
         except Exception as error:
             logging.error(str(error))
         return func.HttpResponse('The function sent events to the event hub.')
