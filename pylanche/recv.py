@@ -1,5 +1,4 @@
 import asyncio
-import json
 import logging
 
 from azure.eventhub.aio import EventHubConsumerClient
