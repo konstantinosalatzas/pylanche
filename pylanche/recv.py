@@ -32,7 +32,7 @@ async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURAT
         # It can be executed in an async task for non-blocking behavior, and combined with the 'close' method.
 
         recv_task = asyncio.ensure_future(client.receive(on_event=on_event, starting_position="-1"))
-        await asyncio.sleep(RECEIVE_DURATION)  # keep receiving for 3 seconds
+        await asyncio.sleep(RECEIVE_DURATION)  # keep receiving for a duration of seconds
         recv_task.cancel()  # stop receiving
 
 def receive(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURATION: float):

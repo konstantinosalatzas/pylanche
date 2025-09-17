@@ -11,9 +11,10 @@ class client:
             self.EVENT_HUB_CONNECTION_STR = event_hub_config['EVENT_HUB_CONNECTION_STR']
             self.EVENT_HUB_NAME = event_hub_config['EVENT_HUB_NAME']
             self.RECEIVE_DURATION = event_hub_config['RECEIVE_DURATION']
+            self.SEND_COUNT = event_hub_config['SEND_COUNT']
 
     def receive(self):
         receive(self.EVENT_HUB_CONNECTION_STR, self.EVENT_HUB_NAME, self.RECEIVE_DURATION)
 
     def send(self):
-        send(self.EVENT_HUB_CONNECTION_STR, self.EVENT_HUB_NAME)
+        send(self.EVENT_HUB_CONNECTION_STR, self.EVENT_HUB_NAME, self.SEND_COUNT)
