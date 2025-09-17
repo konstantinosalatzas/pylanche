@@ -9,30 +9,31 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    name = req.params.get('name')
-    if not name:
+    op = req.params.get('operation')
+    if not op:
         try:
             req_body = req.get_json()
         except ValueError:
             pass
         else:
-            name = req_body.get('name')
+            op = req_body.get('operation')
 
-    if name:
+    if op == "receive":
         try:
             # Receive events from the event hub.
             pylanche.receive()
         except Exception as error:
             logging.error(str(error))
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
-    else:
+        return func.HttpResponse('The function received events from the event hub.')
+    elif op == "send":
         try:
             # Send events to the event hub.
             pylanche.send()
-            logging.info('The function sent events to the event hub.')
         except Exception as error:
             logging.error(str(error))
+        return func.HttpResponse('The function sent events to the event hub.')
+    else:
         return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
+             "This HTTP triggered function executed successfully. Pass an operation in the query string or in the request body to send or receive events.",
              status_code=200
         )
