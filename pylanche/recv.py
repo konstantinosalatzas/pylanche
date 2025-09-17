@@ -36,11 +36,5 @@ async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
         await asyncio.sleep(3)  # keep receiving for 3 seconds
         recv_task.cancel()  # stop receiving
 
-def receive():
-    # Read the configuration file.
-    with open('./pylanche/event_hub.json', 'r') as file:
-        event_hub_config = json.load(file)
-        EVENT_HUB_CONNECTION_STR = event_hub_config['EVENT_HUB_CONNECTION_STR']
-        EVENT_HUB_NAME = event_hub_config['EVENT_HUB_NAME']
-
+def receive(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
     asyncio.run(main(EVENT_HUB_CONNECTION_STR, EVENT_HUB_NAME))

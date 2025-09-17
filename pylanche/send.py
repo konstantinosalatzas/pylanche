@@ -23,11 +23,5 @@ async def run(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
         # Send the batch of events to the event hub.
         await producer.send_batch(event_data_batch)
 
-def send():
-    # Read the configuration file.
-    with open('./pylanche/event_hub.json', 'r') as file:
-        event_hub_config = json.load(file)
-        EVENT_HUB_CONNECTION_STR = event_hub_config['EVENT_HUB_CONNECTION_STR']
-        EVENT_HUB_NAME = event_hub_config['EVENT_HUB_NAME']
-
+def send(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
     asyncio.run(run(EVENT_HUB_CONNECTION_STR, EVENT_HUB_NAME))
