@@ -16,7 +16,7 @@ async def run(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str):
         event_data_batch = await producer.create_batch()
 
         # Add events to the batch.
-        event_data_batch.add(EventData("First event "))
+        event_data_batch.add(EventData("First event"))
         event_data_batch.add(EventData("Second event"))
         event_data_batch.add(EventData("Third event"))
 
