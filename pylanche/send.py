@@ -1,5 +1,4 @@
 import asyncio
-import json
 
 from azure.eventhub import EventData
 from azure.eventhub.aio import EventHubProducerClient
