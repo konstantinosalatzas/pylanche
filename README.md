@@ -1,3 +1,3 @@
-# pylanche
+# p(y)lanche
 
-p(y)lanche is a Python Azure Function for Event Hubs
+pylanche is a Python Azure Function for Event Hubs
