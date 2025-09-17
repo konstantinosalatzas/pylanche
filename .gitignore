@@ -1,4 +1,5 @@
 pylanche/event_hub.json
+scripts/run.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
