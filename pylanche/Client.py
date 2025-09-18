@@ -3,7 +3,7 @@ import json
 from pylanche.recv import receive
 from pylanche.send import send
 
-class client:
+class Client:
     def __init__(self):
         # Read the configuration file.
         with open('./pylanche/event_hub.json', 'r') as file:
