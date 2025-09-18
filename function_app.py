@@ -40,6 +40,6 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         return func.HttpResponse('The function sent events to the event hub.')
     else:
         return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass an operation in the query string or in the request body to send or receive events.",
-             status_code=200
+             "Pass an operation in the query string or in the request body to send or receive events.",
+             status_code=400
         )
