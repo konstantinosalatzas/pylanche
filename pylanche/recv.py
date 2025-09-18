@@ -36,17 +36,20 @@ async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURAT
         eventhub_name=EVENT_HUB_NAME,
         checkpoint_store=checkpoint_store
     )
+
+    print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
+
     async with client:
-        # Call the receive method. Read from the beginning of the
-        # partition (starting_position: "-1")
-        #await client.receive(on_event=on_event, starting_position="-1")
+        task = asyncio.ensure_future(
+            client.receive(
+                on_event=on_event,
+                starting_position="-1",  # "-1" is from the beginning of the partition.
+            )
+        )
+        await asyncio.sleep(RECEIVE_DURATION)
+    await task
 
-        # The receive method is a coroutine which will be blocking when awaited.
-        # It can be executed in an async task for non-blocking behavior, and combined with the 'close' method.
-
-        recv_task = asyncio.ensure_future(client.receive(on_event=on_event, starting_position="-1"))
-        await asyncio.sleep(RECEIVE_DURATION)  # keep receiving for a duration of seconds
-        recv_task.cancel()  # stop receiving
+    print("Consumer has stopped receiving.")
 
 def receive(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURATION: float, BLOB_STORAGE_CONNECTION_STRING: str, BLOB_CONTAINER_NAME: str):
     asyncio.run(main(EVENT_HUB_CONNECTION_STR, EVENT_HUB_NAME, RECEIVE_DURATION, BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME))
