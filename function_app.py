@@ -20,7 +20,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     try:
         # Create a client to perform the operation.
-        client = pylanche.Client()
+        client = pylanche.Client(op)
     except Exception as error:
         logging.error(str(error))
 

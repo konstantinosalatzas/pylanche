@@ -3,13 +3,14 @@ import pylanche
 
 class TestClient(unittest.TestCase):
     def setUp(self):
-        self.client = pylanche.Client()
+        self.consumer = pylanche.Client(op="receive")
+        self.producer = pylanche.Client(op="send")
 
     def test_receive(self):
-        self.client.receive()
+        self.consumer.receive()
 
     def test_send(self):
-        self.client.send()
+        self.producer.send()
 
 if __name__ == "__main__":
     unittest.main()

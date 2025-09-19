@@ -1,14 +1,8 @@
 import asyncio
 
 from azure.eventhub import EventData
-from azure.eventhub.aio import EventHubProducerClient
 
-async def run(EVENT_HUB_CONN_STR: str, EVENT_HUB_NAME: str, SEND_COUNT: int):
-    # Create a producer client to send messages to the event hub.
-    producer = EventHubProducerClient.from_connection_string(
-        conn_str=EVENT_HUB_CONN_STR, eventhub_name=EVENT_HUB_NAME
-    )
-    
+async def run(producer, SEND_COUNT: int):
     async with producer:
         # Create a batch.
         event_data_batch = await producer.create_batch()
@@ -20,5 +14,5 @@ async def run(EVENT_HUB_CONN_STR: str, EVENT_HUB_NAME: str, SEND_COUNT: int):
         # Send the batch of events to the event hub.
         await producer.send_batch(event_data_batch)
 
-def send(EVENT_HUB_CONN_STR: str, EVENT_HUB_NAME: str, SEND_COUNT: int):
-    asyncio.run(run(EVENT_HUB_CONN_STR, EVENT_HUB_NAME, SEND_COUNT))
+def send(producer, SEND_COUNT: int):
+    asyncio.run(run(producer, SEND_COUNT))
