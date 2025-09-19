@@ -38,6 +38,7 @@ async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURAT
     )
 
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
+    logging.info("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
 
     async with client:
         task = asyncio.ensure_future(
@@ -50,6 +51,7 @@ async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURAT
     await task
 
     print("Consumer has stopped receiving.")
+    logging.info("Consumer has stopped receiving.")
 
 def receive(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURATION: float, BLOB_STORAGE_CONNECTION_STRING: str, BLOB_CONTAINER_NAME: str):
     asyncio.run(main(EVENT_HUB_CONNECTION_STR, EVENT_HUB_NAME, RECEIVE_DURATION, BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME))
