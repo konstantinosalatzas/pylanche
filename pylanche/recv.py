@@ -23,15 +23,15 @@ async def on_event(partition_context, event):
     # that it has already read when you run it next time.
     await partition_context.update_checkpoint(event)
 
-async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURATION: float, BLOB_STORAGE_CONNECTION_STRING: str, BLOB_CONTAINER_NAME: str):
+async def main(EVENT_HUB_CONN_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURATION: float, BLOB_STORAGE_CONN_STR: str, BLOB_CONTAINER_NAME: str):
     # Create an Azure blob checkpoint store to store the checkpoints.
     checkpoint_store = BlobCheckpointStore.from_connection_string(
-        BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME
+        BLOB_STORAGE_CONN_STR, BLOB_CONTAINER_NAME
     )
 
     # Create a consumer client for the event hub.
     client = EventHubConsumerClient.from_connection_string(
-        EVENT_HUB_CONNECTION_STR,
+        EVENT_HUB_CONN_STR,
         consumer_group="$Default",
         eventhub_name=EVENT_HUB_NAME,
         checkpoint_store=checkpoint_store
@@ -53,5 +53,5 @@ async def main(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURAT
     print("Consumer has stopped receiving.")
     logging.info("Consumer has stopped receiving.")
 
-def receive(EVENT_HUB_CONNECTION_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURATION: float, BLOB_STORAGE_CONNECTION_STRING: str, BLOB_CONTAINER_NAME: str):
-    asyncio.run(main(EVENT_HUB_CONNECTION_STR, EVENT_HUB_NAME, RECEIVE_DURATION, BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME))
+def receive(EVENT_HUB_CONN_STR: str, EVENT_HUB_NAME: str, RECEIVE_DURATION: float, BLOB_STORAGE_CONN_STR: str, BLOB_CONTAINER_NAME: str):
+    asyncio.run(main(EVENT_HUB_CONN_STR, EVENT_HUB_NAME, RECEIVE_DURATION, BLOB_STORAGE_CONN_STR, BLOB_CONTAINER_NAME))
