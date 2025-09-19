@@ -3,7 +3,7 @@ import pylanche
 
 class TestClient(unittest.TestCase):
     def setUp(self):
-        self.client = pylanche.client()
+        self.client = pylanche.Client()
 
     def test_receive(self):
         self.client.receive()

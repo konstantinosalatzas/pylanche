@@ -1,3 +1,3 @@
 from pylanche.send import send
 from pylanche.recv import receive
-from pylanche.client import client
+from pylanche.Client import Client
