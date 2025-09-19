@@ -2,9 +2,7 @@ import asyncio
 import logging
 
 from azure.eventhub.aio import EventHubConsumerClient
-from azure.eventhub.extensions.checkpointstoreblobaio import (
-    BlobCheckpointStore,
-)
+from azure.eventhub.extensions.checkpointstoreblobaio import BlobCheckpointStore
 
 async def on_event(partition_context, event):
     # Print the event data.
@@ -18,7 +16,6 @@ async def on_event(partition_context, event):
             event.body_as_str(encoding="UTF-8"), partition_context.partition_id
         )
     )
-
     # Update the checkpoint so that the program doesn't read the events
     # that it has already read when you run it next time.
     await partition_context.update_checkpoint(event)
