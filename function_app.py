@@ -18,8 +18,8 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         else:
             op = req_body.get('operation')
 
-    # Create a client to perform the operation.
     try:
+        # Create a client to perform the operation.
         client = pylanche.Client()
     except Exception as error:
         logging.error(str(error))
