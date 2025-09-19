@@ -1,6 +1,8 @@
 import asyncio
 import logging
 
+from azure.eventhub.aio import EventHubConsumerClient
+
 async def on_event(partition_context, event):
     # Print the event data.
     print(
@@ -17,7 +19,7 @@ async def on_event(partition_context, event):
     # that it has already read when you run it next time.
     await partition_context.update_checkpoint(event)
 
-async def main(client, RECEIVE_DURATION: float):
+async def main(client: EventHubConsumerClient, RECEIVE_DURATION: float):
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
     logging.info("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
 
@@ -34,5 +36,5 @@ async def main(client, RECEIVE_DURATION: float):
     print("Consumer has stopped receiving.")
     logging.info("Consumer has stopped receiving.")
 
-def receive(consumer, RECEIVE_DURATION: float):
+def receive(consumer: EventHubConsumerClient, RECEIVE_DURATION: float):
     asyncio.run(main(consumer, RECEIVE_DURATION))

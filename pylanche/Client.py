@@ -18,7 +18,6 @@ class Client:
             checkpoint_store = BlobCheckpointStore.from_connection_string(
                 event_hub_config['BLOB_STORAGE_CONN_STR'], event_hub_config['BLOB_CONTAINER_NAME']
             )
-
             # Create a consumer client for the event hub.
             self.consumer = EventHubConsumerClient.from_connection_string(
                 event_hub_config['EVENT_HUB_CONN_STR'],
@@ -26,14 +25,12 @@ class Client:
                 eventhub_name=event_hub_config['EVENT_HUB_NAME'],
                 checkpoint_store=checkpoint_store
             )
-            
             self.RECEIVE_DURATION = event_hub_config['RECEIVE_DURATION']
         elif op == "send":
             # Create a producer client to send messages to the event hub.
             self.producer = EventHubProducerClient.from_connection_string(
                 conn_str=event_hub_config['EVENT_HUB_CONN_STR'], eventhub_name=event_hub_config['EVENT_HUB_NAME']
             )
-
             self.SEND_COUNT = event_hub_config['SEND_COUNT']
 
     def receive(self):
