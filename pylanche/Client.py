@@ -33,8 +33,8 @@ class Client:
             )
             self.SEND_COUNT = event_hub_config['SEND_COUNT']
 
-    def receive(self):
-        receive(self.consumer, self.RECEIVE_DURATION)
-
-    def send(self):
-        send(self.producer, self.SEND_COUNT)
+    def perform(self, op: str):
+        if op == "receive":
+            receive(self.consumer, self.RECEIVE_DURATION)
+        elif op == "send":
+            send(self.producer, self.SEND_COUNT)

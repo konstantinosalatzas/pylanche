@@ -7,10 +7,10 @@ class TestClient(unittest.TestCase):
         self.producer = pylanche.Client(op="send")
 
     def test_receive(self):
-        self.consumer.receive()
+        self.consumer.perform(op="receive")
 
     def test_send(self):
-        self.producer.send()
+        self.producer.perform(op="send")
 
 if __name__ == "__main__":
     unittest.main()
