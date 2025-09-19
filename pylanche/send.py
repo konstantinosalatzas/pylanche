@@ -4,7 +4,7 @@ import logging
 from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub import EventData
 
-async def run(producer: EventHubProducerClient, SEND_COUNT: int):
+async def perform(producer: EventHubProducerClient, SEND_COUNT: int):
     print("Producer will send {} events.".format(SEND_COUNT))
     logging.info("Producer will send {} events.".format(SEND_COUNT))
 
@@ -23,4 +23,4 @@ async def run(producer: EventHubProducerClient, SEND_COUNT: int):
     logging.info("Producer sent {} events.".format(SEND_COUNT))
 
 def send(producer: EventHubProducerClient, SEND_COUNT: int):
-    asyncio.run(run(producer, SEND_COUNT))
+    asyncio.run(perform(producer, SEND_COUNT))

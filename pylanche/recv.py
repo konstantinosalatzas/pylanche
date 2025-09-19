@@ -19,7 +19,7 @@ async def on_event(partition_context, event):
     # that it has already read when you run it next time.
     await partition_context.update_checkpoint(event)
 
-async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: float):
+async def perform(consumer: EventHubConsumerClient, RECEIVE_DURATION: float):
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
     logging.info("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
 
@@ -37,4 +37,4 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: float):
     logging.info("Consumer has stopped receiving.")
 
 def receive(consumer: EventHubConsumerClient, RECEIVE_DURATION: float):
-    asyncio.run(main(consumer, RECEIVE_DURATION))
+    asyncio.run(perform(consumer, RECEIVE_DURATION))
