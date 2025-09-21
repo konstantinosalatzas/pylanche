@@ -15,8 +15,7 @@ async def on_event(partition_context, event):
             event.body_as_str(encoding="UTF-8"), partition_context.partition_id
         )
     )
-    # Update the checkpoint so that the program doesn't read the events
-    # that it has already read when you run it next time.
+    # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
 
 async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: float):
