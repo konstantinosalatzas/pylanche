@@ -4,15 +4,16 @@ import logging
 from azure.eventhub.aio import EventHubConsumerClient
 
 async def on_event(partition_context, event):
+    message = event.body_as_str(encoding="UTF-8")
     # Print the event data.
     print(
         'Received the event: "{}" from the partition with ID: "{}"'.format(
-            event.body_as_str(encoding="UTF-8"), partition_context.partition_id
+            message, partition_context.partition_id
         )
     )
     logging.info(
         'Received the event: "{}" from the partition with ID: "{}"'.format(
-            event.body_as_str(encoding="UTF-8"), partition_context.partition_id
+            message, partition_context.partition_id
         )
     )
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
