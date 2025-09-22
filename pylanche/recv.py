@@ -1,7 +1,16 @@
 import asyncio
+import json
 import logging
 
 from azure.eventhub.aio import EventHubConsumerClient
+
+def process(message: str):
+    try:
+        data = json.loads(message)
+    except ValueError: # The message is not in JSON format.
+        return
+    print('Processed the event: "{}"'.format(str(data)))
+    logging.info('Processed the event: "{}"'.format(str(data)))
 
 async def on_event(partition_context, event):
     message = event.body_as_str(encoding="UTF-8")
@@ -16,6 +25,8 @@ async def on_event(partition_context, event):
             message, partition_context.partition_id
         )
     )
+    # Process the event data.
+    process(message)
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
 
