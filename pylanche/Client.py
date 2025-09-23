@@ -4,7 +4,7 @@ from azure.eventhub.extensions.checkpointstoreblobaio import BlobCheckpointStore
 from azure.eventhub.aio import EventHubConsumerClient
 from azure.eventhub.aio import EventHubProducerClient
 
-from pylanche.recv import receive
+from pylanche.receive import receive
 from pylanche.send import send
 
 class Client:
