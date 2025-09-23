@@ -19,19 +19,14 @@ def process(message: str) -> dict | None:
 
 async def on_event(partition_context, event):
     message = event.body_as_str(encoding="UTF-8")
+    
     # Print the event data.
-    print(
-        'Received the event: "{}" from the partition with ID: "{}"'.format(
-            message, partition_context.partition_id
-        )
-    )
-    logging.info(
-        'Received the event: "{}" from the partition with ID: "{}"'.format(
-            message, partition_context.partition_id
-        )
-    )
+    print('Received the event: "{}" from the partition with ID: "{}"'.format(message, partition_context.partition_id))
+    logging.info('Received the event: "{}" from the partition with ID: "{}"'.format(message, partition_context.partition_id))
+    
     # Process the event data.
     process(message)
+    
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
 
