@@ -9,7 +9,7 @@ def parse(message: str) -> dict | None:
         logging.info("Failed to parse the message as JSON.")
         return None
     
-    print('Processed the event: "{}"'.format(str(data)))
-    logging.info('Processed the event: "{}"'.format(str(data)))
+    print('Parsed the message: "{}"'.format(str(data)))
+    logging.info('Parsed the message: "{}"'.format(str(data)))
     
     return data
