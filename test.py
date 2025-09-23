@@ -21,5 +21,13 @@ class TestProcess(unittest.TestCase):
 
         self.assertEqual(data_out, data_ans)
 
+    def test_parse_invalid(self):
+        message = "test" # input message
+        value_ans = None # expected return value
+
+        value_out = pylanche.process.parse(message) # output value
+
+        self.assertEqual(value_out, value_ans)
+
 if __name__ == "__main__":
     unittest.main()
