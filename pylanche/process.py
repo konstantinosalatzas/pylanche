@@ -1,7 +1,7 @@
 import json
 import logging
 
-def process(message: str) -> dict | None:
+def parse(message: str) -> dict | None:
     try:
         data = json.loads(message)
     except ValueError: # The message is not in JSON format.
