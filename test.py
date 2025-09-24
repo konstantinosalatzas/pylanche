@@ -12,5 +12,22 @@ class TestClient(unittest.TestCase):
     def test_send(self):
         self.producer.perform(op="send")
 
+class TestProcess(unittest.TestCase):
+    def test_parse_valid(self):
+        message = '{"id": "0"}' # input JSON message
+        data_ans = {'id': "0"} # expected dict
+
+        data_out = pylanche.process.parse(message) # output dict
+
+        self.assertEqual(data_out, data_ans)
+
+    def test_parse_invalid(self):
+        message = "test" # input message
+        value_ans = None # expected return value
+
+        value_out = pylanche.process.parse(message) # output value
+
+        self.assertEqual(value_out, value_ans)
+
 if __name__ == "__main__":
     unittest.main()
