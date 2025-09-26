@@ -11,4 +11,6 @@ If a received event message is in JSON format, then it is processed (parsed to d
 
 ## Configuration
 
+The configuration of Event Hub, Azure Blob Storage, receival duration and send count is done with the JSON file:
+
 [pylanche/event_hub_template.json](https://github.com/konstantinosalatzas/pylanche/blob/main/pylanche/event_hub_template.json)
