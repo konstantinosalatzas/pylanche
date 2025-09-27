@@ -17,6 +17,18 @@ class TestFunction(unittest.TestCase):
         response = f(request) # output response
         print(response.status_code)
 
+    def test_http_trigger_send(self):
+        request = func.HttpRequest(method='POST',
+                                   body = None,
+                                   url='/api/http_trigger',
+                                   params = {'operation': 'receive'}
+        ) # input request
+
+        f = http_trigger.build().get_user_function()
+
+        response = f(request) # output response
+        print(response.status_code)
+
 '''
 class TestClient(unittest.TestCase):
     def setUp(self):
