@@ -8,3 +8,9 @@ It is deployed to a Function App with an HTTP trigger to:
 * send a number of events to an Event Hub
 
 If a received event message is in JSON format, then it is processed (parsed to dictionary).
+
+## Configuration
+
+The configuration of Event Hub, checkpoint store, receival duration and send count is done with the JSON file:
+
+[pylanche/config.json](https://github.com/konstantinosalatzas/pylanche/blob/main/pylanche/config_template.json)
