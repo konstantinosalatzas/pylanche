@@ -21,7 +21,7 @@ class TestFunction(unittest.TestCase):
         request = func.HttpRequest(method='POST',
                                    body = None,
                                    url='/api/http_trigger',
-                                   params = {'operation': 'receive'}
+                                   params = {'operation': 'send'}
         ) # input request
 
         f = http_trigger.build().get_user_function()
