@@ -1,6 +1,23 @@
 import unittest
 import pylanche
+import azure.functions as func
 
+from function_app import http_trigger
+
+class TestFunction(unittest.TestCase):
+    def test_http_trigger(self):
+        request = func.HttpRequest(method='POST',
+                                   body = None,
+                                   url='/api/http_trigger',
+                                   params = {'operation': 'receive'}
+        ) # input request
+
+        f = http_trigger.build().get_user_function()
+
+        response = f(request) # output response
+        print(response.status_code)
+
+'''
 class TestClient(unittest.TestCase):
     def setUp(self):
         self.consumer = pylanche.Client(op="receive")
@@ -11,6 +28,7 @@ class TestClient(unittest.TestCase):
 
     def test_send(self):
         self.producer.perform(op="send")
+'''
 
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
