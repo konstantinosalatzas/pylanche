@@ -29,6 +29,17 @@ class TestFunction(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_http_trigger_no_op(self):
+        request = func.HttpRequest(method="POST",
+                                   body="{}".encode(),
+                                   url="/api/http_trigger"
+        ) # input request
+
+        f = http_trigger.build().get_user_function()
+        response = f(request) # output response
+
+        self.assertEqual(response.status_code, 400)
+
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
         message = '{"id": "test"}' # input JSON message
