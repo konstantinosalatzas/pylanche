@@ -13,9 +13,9 @@ class TestFunction(unittest.TestCase):
         ) # input request
 
         f = http_trigger.build().get_user_function()
-
         response = f(request) # output response
-        print(response.status_code)
+
+        self.assertEqual(response.status_code, 200)
 
     def test_http_trigger_send(self):
         request = func.HttpRequest(method="POST",
@@ -25,9 +25,9 @@ class TestFunction(unittest.TestCase):
         ) # input request
 
         f = http_trigger.build().get_user_function()
-
         response = f(request) # output response
-        print(response.status_code)
+
+        self.assertEqual(response.status_code, 200)
 
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
