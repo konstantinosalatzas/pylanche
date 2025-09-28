@@ -10,7 +10,7 @@ from pylanche.send import send
 class Client:
     def __init__(self, op: str):
         # Read the configuration file.
-        with open('./pylanche/config.json', 'r') as file:
+        with open("./pylanche/config.json", "r") as file:
             event_hub_config = json.load(file)               
 
         if op == "receive":
