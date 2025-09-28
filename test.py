@@ -7,9 +7,9 @@ from function_app import http_trigger
 class TestFunction(unittest.TestCase):
     def test_http_trigger_receive(self):
         request = func.HttpRequest(method="POST",
-                                   body = None,
+                                   body=None,
                                    url="/api/http_trigger",
-                                   params = {"operation": "receive"}
+                                   params={"operation": "receive"}
         ) # input request
 
         f = http_trigger.build().get_user_function()
@@ -19,9 +19,9 @@ class TestFunction(unittest.TestCase):
 
     def test_http_trigger_send(self):
         request = func.HttpRequest(method="POST",
-                                   body = None,
+                                   body=None,
                                    url="/api/http_trigger",
-                                   params = {"operation": "send"}
+                                   params={"operation": "send"}
         ) # input request
 
         f = http_trigger.build().get_user_function()
