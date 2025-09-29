@@ -4,7 +4,7 @@ import azure.functions as func
 
 from function_app import http_trigger
 
-class TestFunction(unittest.TestCase):
+class TestFunctionApp(unittest.TestCase):
     def test_http_trigger_receive(self):
         request = func.HttpRequest(method="POST",
                                    body=None,
