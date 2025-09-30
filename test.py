@@ -1,21 +1,49 @@
 import unittest
 import pylanche
+import azure.functions as func
 
-class TestClient(unittest.TestCase):
-    def setUp(self):
-        self.consumer = pylanche.Client(op="receive")
-        self.producer = pylanche.Client(op="send")
+from function_app import http_trigger
 
-    def test_receive(self):
-        self.consumer.perform(op="receive")
+class TestFunctionApp(unittest.TestCase):
+    def test_http_trigger_receive(self):
+        request = func.HttpRequest(method="POST",
+                                   body=None,
+                                   url="/api/http_trigger",
+                                   params={"operation": "receive"}
+        ) # input request
 
-    def test_send(self):
-        self.producer.perform(op="send")
+        f = http_trigger.build().get_user_function()
+        response = f(request) # output response
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_http_trigger_send(self):
+        request = func.HttpRequest(method="POST",
+                                   body=None,
+                                   url="/api/http_trigger",
+                                   params={"operation": "send"}
+        ) # input request
+
+        f = http_trigger.build().get_user_function()
+        response = f(request) # output response
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_http_trigger_no_op(self):
+        request = func.HttpRequest(method="POST",
+                                   body="{}".encode(),
+                                   url="/api/http_trigger"
+        ) # input request
+
+        f = http_trigger.build().get_user_function()
+        response = f(request) # output response
+
+        self.assertEqual(response.status_code, 400)
 
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
-        message = '{"id": "0"}' # input JSON message
-        data_ans = {'id': "0"} # expected dict
+        message = '{"id": "test"}' # input JSON message
+        data_ans = {"id": "test"} # expected dict
 
         data_out = pylanche.process.parse(message) # output dict
 
