@@ -10,8 +10,8 @@ from pylanche.send import send
 class Client:
     def __init__(self, op: str):
         # Read the configuration file.
-        with open("./pylanche/config.json", "r") as file:
-            config = json.load(file)               
+        with open("./pylanche/config.json", "r") as config_file:
+            config = json.load(config_file)
 
         if op == "receive":
             # Create an Azure blob checkpoint store to store the checkpoints.
