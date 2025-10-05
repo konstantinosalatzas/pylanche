@@ -14,7 +14,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         try:
             req_body = req.get_json()
         except ValueError:
-            pass
+            logging.info("The request body does not contain valid JSON data.")
         else:
             op = req_body.get('operation')
 
