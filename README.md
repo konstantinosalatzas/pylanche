@@ -9,9 +9,9 @@ It is deployed to a Function App with an HTTP trigger to:
 
 If a received event message is in JSON format, then it is processed (parsed to dictionary).
 
-## Input parameter
+## Input
 
-The HTTP trigger expects the input parameter "operation" with the value "receive" or "send" of the operation to perform.
+The HTTP trigger expects the input parameter `operation` with the value `receive` or `send` of the operation to perform.
 
 ## Configuration
 
