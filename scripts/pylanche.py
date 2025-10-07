@@ -10,6 +10,7 @@ app_name = config['APP_NAME']
 function_name = config['FUNCTION_NAME']
 url = "https://{}.azurewebsites.net/api/{}?operation=receive".format(app_name, function_name)
 
+# Repeat performing the receive operation.
 while True:
     # Request to perform receive operation.
     try:
