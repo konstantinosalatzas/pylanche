@@ -15,6 +15,6 @@ while True:
     # Request to perform receive operation.
     try:
         resp = requests.post(url=url)
-        print(resp.status_code)
+        print(f"{resp.text} ({resp.status_code})")
     except Exception as error:
         print(error)
