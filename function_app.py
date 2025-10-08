@@ -14,16 +14,17 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         try:
             req_body = req.get_json()
         except ValueError:
-            pass
+            logging.error("The request body does not contain valid JSON data.")
         else:
             op = req_body.get('operation')
 
-    try:
-        # Create a client and perform the operation.
-        client = pylanche.Client(op)
-        client.perform(op)
-    except Exception as error:
-        logging.error(str(error))
+    if op in ["receive", "send"]:
+        try:
+            # Create a client and perform the operation.
+            client = pylanche.Client(op)
+            client.perform(op)
+        except Exception as error:
+            logging.error(str(error))
 
     if op == "receive":
         return func.HttpResponse("The function received events from the event hub.")

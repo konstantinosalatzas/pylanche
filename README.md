@@ -9,6 +9,10 @@ It is deployed to a Function App with an HTTP trigger to:
 
 If a received event message is in JSON format, then it is processed (parsed to dictionary).
 
+## Input
+
+The HTTP trigger expects the input parameter `operation` with the value `receive` or `send` of the operation to perform.
+
 ## Configuration
 
 The configuration of Event Hub, checkpoint store, receive duration and send count is done with the JSON file:
