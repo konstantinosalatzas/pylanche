@@ -16,11 +16,11 @@ class Client:
         if op == "receive":
             # Create an Azure blob checkpoint store to store the checkpoints.
             checkpoint_store = BlobCheckpointStore.from_connection_string(
-                config['BLOB_STORAGE_CONN_STR'], config['BLOB_CONTAINER_NAME']
+                config['BLOB_STORAGE_CONNECTION_STRING'], config['BLOB_CONTAINER_NAME']
             )
             # Create a consumer client to receive events from the event hub.
             self.consumer = EventHubConsumerClient.from_connection_string(
-                config['EVENT_HUB_CONN_STR'],
+                config['EVENT_HUB_CONNECTION_STRING'],
                 consumer_group="$Default",
                 eventhub_name=config['EVENT_HUB_NAME'],
                 checkpoint_store=checkpoint_store
@@ -29,7 +29,7 @@ class Client:
         elif op == "send":
             # Create a producer client to send events to the event hub.
             self.producer = EventHubProducerClient.from_connection_string(
-                conn_str=config['EVENT_HUB_CONN_STR'], eventhub_name=config['EVENT_HUB_NAME']
+                conn_str=config['EVENT_HUB_CONNECTION_STRING'], eventhub_name=config['EVENT_HUB_NAME']
             )
             self.SEND_COUNT = config['SEND_COUNT']
 
