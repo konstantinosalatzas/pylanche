@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 
 from azure.eventhub.extensions.checkpointstoreblobaio import BlobCheckpointStore
 from azure.eventhub.aio import EventHubConsumerClient
@@ -18,7 +19,10 @@ class Client:
             EVENT_HUB_NAME = os.environ['EVENT_HUB_NAME']
             RECEIVE_DURATION = os.environ['RECEIVE_DURATION']
             SEND_COUNT = os.environ['SEND_COUNT']
-        except Exception:
+            logging.info("Got the configuration values from the environment variables.")
+        except Exception as error:
+            logging.error(str(error))
+            logging.info("Failed to get the configuration values from the environment variables.")
             # Read the configuration file.
             with open("./pylanche/config.json", "r") as config_file:
                 config = json.load(config_file)
@@ -28,6 +32,7 @@ class Client:
                 EVENT_HUB_NAME = config['EVENT_HUB_NAME']
                 RECEIVE_DURATION = config['RECEIVE_DURATION']
                 SEND_COUNT = config['SEND_COUNT']
+                logging.info("Read the configuration file.")
 
         if op == "receive":
             # Create an Azure blob checkpoint store to store the checkpoints.
