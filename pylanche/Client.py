@@ -11,8 +11,8 @@ from pylanche.send import send
 
 class Client:
     def __init__(self, op: str):
-        # Get the environment variables.
         try:
+            # Get the environment variables.
             BLOB_STORAGE_CONNECTION_STRING = os.environ['BLOB_STORAGE_CONNECTION_STRING']
             BLOB_CONTAINER_NAME = os.environ['BLOB_CONTAINER_NAME']
             EVENT_HUB_CONNECTION_STRING = os.environ['EVENT_HUB_CONNECTION_STRING']
