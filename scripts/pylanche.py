@@ -1,3 +1,5 @@
+"""Receive on repeat."""
+
 import json
 import requests
 
