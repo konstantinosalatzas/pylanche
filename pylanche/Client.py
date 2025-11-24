@@ -22,12 +22,15 @@ class Client:
     def __init__(self, op: str):
         try:
             # Get the environment variables.
+            '''
             BLOB_STORAGE_CONNECTION_STRING = os.environ['BLOB_STORAGE_CONNECTION_STRING']
             BLOB_CONTAINER_NAME = os.environ['BLOB_CONTAINER_NAME']
             EVENT_HUB_CONNECTION_STRING = os.environ['EVENT_HUB_CONNECTION_STRING']
             EVENT_HUB_NAME = os.environ['EVENT_HUB_NAME']
             RECEIVE_DURATION = os.environ['RECEIVE_DURATION']
             SEND_COUNT = os.environ['SEND_COUNT']
+            '''
+            (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = get_config(os.environ)
             logging.info("Got the configuration values from the environment variables.")
         except Exception as error:
             logging.error(str(error))
