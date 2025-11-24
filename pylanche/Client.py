@@ -38,12 +38,15 @@ class Client:
             # Read the configuration file.
             with open("./pylanche/config.json", "r") as config_file:
                 config = json.load(config_file)
+                '''
                 BLOB_STORAGE_CONNECTION_STRING = config['BLOB_STORAGE_CONNECTION_STRING']
                 BLOB_CONTAINER_NAME = config['BLOB_CONTAINER_NAME']
                 EVENT_HUB_CONNECTION_STRING = config['EVENT_HUB_CONNECTION_STRING']
                 EVENT_HUB_NAME = config['EVENT_HUB_NAME']
                 RECEIVE_DURATION = config['RECEIVE_DURATION']
                 SEND_COUNT = config['SEND_COUNT']
+                '''
+                (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = get_config(config)
                 logging.info("Read the configuration file.")
 
         if op == "receive":
