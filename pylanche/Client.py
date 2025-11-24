@@ -10,7 +10,6 @@ from pylanche.receive import receive
 from pylanche.send import send
 
 def get_config(config: dict[str, str]) -> tuple[str, ...]:
-    """Get the configuration values from an input dict and return them as a tuple."""
     BLOB_STORAGE_CONNECTION_STRING = config['BLOB_STORAGE_CONNECTION_STRING']
     BLOB_CONTAINER_NAME = config['BLOB_CONTAINER_NAME']
     EVENT_HUB_CONNECTION_STRING = config['EVENT_HUB_CONNECTION_STRING']
