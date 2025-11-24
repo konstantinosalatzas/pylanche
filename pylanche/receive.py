@@ -35,7 +35,7 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: float):
                 starting_position="-1",  # "-1" is from the beginning of the partition.
             )
         )
-        await asyncio.sleep(RECEIVE_DURATION)
+        await asyncio.sleep(int(RECEIVE_DURATION))
     await task
 
     print("Consumer has stopped receiving.")

@@ -13,7 +13,7 @@ async def main(producer: EventHubProducerClient, SEND_COUNT: int):
         event_data_batch = await producer.create_batch()
 
         # Add events to the batch.
-        for i in range(0, SEND_COUNT):
+        for i in range(0, int(SEND_COUNT)):
             event_data_str = '{"id": "'+str(i+1)+'"}'
             event_data_batch.add(EventData(event_data_str))
         
