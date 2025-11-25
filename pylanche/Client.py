@@ -18,7 +18,7 @@ def get_config(config: dict[str, str]) -> tuple[str, ...]  | None:
         RECEIVE_DURATION = config['RECEIVE_DURATION']
         SEND_COUNT = config['SEND_COUNT']
         return (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT)
-    except Exception as error:
+    except Exception:
         return None
 
 class Client:
