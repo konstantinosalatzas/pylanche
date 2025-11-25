@@ -33,8 +33,11 @@ class Client:
             # Read the configuration file.
             with open("./pylanche/config.json", "r") as config_file:
                 config = json.load(config_file)
-                (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = get_config(config)
-                logging.info("Read the configuration file.")
+                try:
+                    (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = get_config(config)
+                    logging.info("Read the configuration file.")
+                except Exception:
+                    logging.info("Failed to get the configuration values from the configuration file.")
 
         if op == "receive":
             # Create an Azure blob checkpoint store to store the checkpoints.
