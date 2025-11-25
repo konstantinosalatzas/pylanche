@@ -1,5 +1,4 @@
 import json
-import logging
 
 def parse(message: str) -> dict | None:
     try:
