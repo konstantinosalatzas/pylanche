@@ -18,7 +18,8 @@ def get_config(config: dict[str, str]) -> tuple[str, ...]  | None:
         RECEIVE_DURATION = config['RECEIVE_DURATION']
         SEND_COUNT = config['SEND_COUNT']
         return (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT)
-    except Exception:
+    except Exception as error:
+        logging.error(str(error))
         return None
 
 class Client:
@@ -36,7 +37,8 @@ class Client:
                 try:
                     (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = get_config(config)
                     logging.info("Read the configuration file.")
-                except Exception:
+                except Exception as error:
+                    logging.error(str(error))
                     logging.info("Failed to get the configuration values from the configuration file.")
 
         if op == "receive":
