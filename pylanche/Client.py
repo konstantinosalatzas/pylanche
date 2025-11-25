@@ -23,12 +23,12 @@ def get_config(config: dict[str, str]) -> tuple[str, ...]  | None:
 
 class Client:
     def __init__(self, op: str):
-        try:
-            # Get the environment variables.
-            (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = get_config(os.environ)
+        # Get the environment variables.
+        config = get_config(os.environ)
+        if config != None:
+            (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = config
             logging.info("Got the configuration values from the environment variables.")
-        except Exception as error:
-            logging.error(str(error))
+        else:
             logging.info("Failed to get the configuration values from the environment variables.")
             # Read the configuration file.
             with open("./pylanche/config.json", "r") as config_file:
