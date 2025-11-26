@@ -34,8 +34,9 @@ class Client:
                 if config == None:
                     logging.info("Failed to get the configuration values from the configuration file.")
                 logging.info("Read the configuration file.")
+
         (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = config
-        logging.info("Got the configuration values from the environment variables.")
+        logging.info("Got the configuration values.")
 
         if op == "receive":
             # Create an Azure blob checkpoint store to store the checkpoints.
