@@ -18,23 +18,23 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         else:
             op = req_body.get('operation')
 
-    if op in ["receive", "send"]:
-        try:
-            # Create a client and perform the operation.
-            client = pylanche.Client(op)
-            client.perform(op)
-            if op == "receive":
-                return func.HttpResponse("The function received events from the event hub.")
-            if op == "send":
-                return func.HttpResponse("The function sent events to the event hub.")
-        except Exception as error:
-            logging.error(str(error))
-            return func.HttpResponse(
-                    "The function failed to perform the operation, please check the logs.",
-                    status_code=500
-            )
-
-    return func.HttpResponse(
-            "Pass an operation in the query string or in the request body to receive or send events.",
-            status_code=400
-    )
+    if op not in ["receive", "send"]:
+        return func.HttpResponse(
+                "Pass an operation in the query string or in the request body to receive or send events.",
+                status_code=400
+        )
+    
+    try:
+        # Create a client and perform the operation.
+        client = pylanche.Client(op)
+        client.perform(op)
+        if op == "receive":
+            return func.HttpResponse("The function received events from the event hub.")
+        if op == "send":
+            return func.HttpResponse("The function sent events to the event hub.")
+    except Exception as error:
+        logging.error(str(error))
+        return func.HttpResponse(
+                "The function failed to perform the operation, please check the logs.",
+                status_code=500
+        )
