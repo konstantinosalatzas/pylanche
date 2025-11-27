@@ -14,12 +14,11 @@ async def on_event(partition_context, event):
     
     # Process the event data.
     data = parse(message)
-    if data != None:
-        print('Parsed the message: "{}"'.format(str(data)))
-        logging.info('Parsed the message: "{}"'.format(str(data)))
-    else:
+    if data == None:
         print("Failed to parse the message as JSON.")
         logging.info("Failed to parse the message as JSON.")
+    print('Parsed the message: "{}"'.format(str(data)))
+    logging.info('Parsed the message: "{}"'.format(str(data)))
     
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
