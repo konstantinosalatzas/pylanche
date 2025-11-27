@@ -29,6 +29,10 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
                 return func.HttpResponse("The function sent events to the event hub.")
         except Exception as error:
             logging.error(str(error))
+            return func.HttpResponse(
+                    "The function failed to perform the operation, please check the logs.",
+                    status_code=500
+            )
 
     return func.HttpResponse(
             "Pass an operation in the query string or in the request body to receive or send events.",
