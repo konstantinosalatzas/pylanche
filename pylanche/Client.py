@@ -50,7 +50,8 @@ class Client:
                 checkpoint_store=checkpoint_store
             )
             self.RECEIVE_DURATION = RECEIVE_DURATION
-        elif op == "send":
+
+        if op == "send":
             # Create a producer client to send events to the event hub.
             self.producer = EventHubProducerClient.from_connection_string(
                 conn_str=EVENT_HUB_CONNECTION_STRING, eventhub_name=EVENT_HUB_NAME
@@ -60,5 +61,5 @@ class Client:
     def perform(self, op: str):
         if op == "receive":
             receive(self.consumer, self.RECEIVE_DURATION)
-        elif op == "send":
+        if op == "send":
             send(self.producer, self.SEND_COUNT)
