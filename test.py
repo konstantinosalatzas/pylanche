@@ -45,17 +45,17 @@ class TestProcess(unittest.TestCase):
         message = '{"id": "test"}' # input JSON string
         data_ans = {"id": "test"} # expected dict
 
-        data_out = pylanche.process.parse(message) # output return
+        ret_out = pylanche.process.parse(message) # output return
 
-        self.assertEqual(data_out, data_ans)
+        self.assertEqual(ret_out, data_ans)
 
     def test_parse_invalid(self):
         message = "test" # input message
-        value_ans = None # expected return
+        ret_ans = None # expected return
 
-        value_out = pylanche.process.parse(message) # output return
+        ret_out = pylanche.process.parse(message) # output return
 
-        self.assertEqual(value_out, value_ans)
+        self.assertEqual(ret_out, ret_ans)
 
 class TestConfig(unittest.TestCase):
     def test_get_config_valid(self):
