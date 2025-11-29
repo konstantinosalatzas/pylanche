@@ -42,18 +42,18 @@ class TestFunctionApp(unittest.TestCase):
 
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
-        message = '{"id": "test"}' # input JSON message
+        message = '{"id": "test"}' # input JSON string
         data_ans = {"id": "test"} # expected dict
 
-        data_out = pylanche.process.parse(message) # output dict
+        data_out = pylanche.process.parse(message) # output return
 
         self.assertEqual(data_out, data_ans)
 
     def test_parse_invalid(self):
         message = "test" # input message
-        value_ans = None # expected return value
+        value_ans = None # expected return
 
-        value_out = pylanche.process.parse(message) # output value
+        value_out = pylanche.process.parse(message) # output return
 
         self.assertEqual(value_out, value_ans)
 
@@ -65,9 +65,9 @@ class TestConfig(unittest.TestCase):
                   "EVENT_HUB_NAME": "value4",
                   "RECEIVE_DURATION": "value5",
                   "SEND_COUNT": "value6"} # input dict
-        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6") # expected return tuple
+        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6") # expected tuple
 
-        ret_out = pylanche.get_config(config) # output tuple
+        ret_out = pylanche.get_config(config) # output return
 
         self.assertEqual(ret_out, ret_ans)
     
