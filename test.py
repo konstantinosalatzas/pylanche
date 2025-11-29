@@ -57,5 +57,19 @@ class TestProcess(unittest.TestCase):
 
         self.assertEqual(value_out, value_ans)
 
+class TestConfig(unittest.TestCase):
+    def test_get_config_valid(self):
+        config = {"BLOB_STORAGE_CONNECTION_STRING": "value1",
+                  "BLOB_CONTAINER_NAME": "value2",
+                  "EVENT_HUB_CONNECTION_STRING": "value3",
+                  "EVENT_HUB_NAME": "value4",
+                  "RECEIVE_DURATION": "value5",
+                  "SEND_COUNT": "value6"} # input dict
+        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6") # expected return tuple
+
+        ret_out = pylanche.get_config(config) # output tuple
+
+        self.assertEqual(ret_out, ret_ans)
+
 if __name__ == "__main__":
     unittest.main()
