@@ -42,7 +42,7 @@ class TestFunctionApp(unittest.TestCase):
 
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
-        message = '{"id": "test"}' # input JSON string
+        message = '{"id": "test"}' # input JSON string message
         data_ans = {"id": "test"} # expected dict
 
         ret_out = pylanche.process.parse(message) # output return
