@@ -70,6 +70,14 @@ class TestConfig(unittest.TestCase):
         ret_out = pylanche.get_config(config) # output tuple
 
         self.assertEqual(ret_out, ret_ans)
+    
+    def test_get_config_invalid(self):
+        config = {"key": "value"} # input dict
+        ret_ans = None # expected return
+
+        ret_out = pylanche.get_config(config) # output return
+
+        self.assertEqual(ret_out, ret_ans)
 
 if __name__ == "__main__":
     unittest.main()
