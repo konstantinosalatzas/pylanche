@@ -42,20 +42,42 @@ class TestFunctionApp(unittest.TestCase):
 
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
-        message = '{"id": "test"}' # input JSON message
+        message = '{"id": "test"}' # input JSON string message
         data_ans = {"id": "test"} # expected dict
 
-        data_out = pylanche.process.parse(message) # output dict
+        ret_out = pylanche.process.parse(message) # output return
 
-        self.assertEqual(data_out, data_ans)
+        self.assertEqual(ret_out, data_ans)
 
     def test_parse_invalid(self):
         message = "test" # input message
-        value_ans = None # expected return value
+        ret_ans = None # expected return
 
-        value_out = pylanche.process.parse(message) # output value
+        ret_out = pylanche.process.parse(message) # output return
 
-        self.assertEqual(value_out, value_ans)
+        self.assertEqual(ret_out, ret_ans)
+
+class TestConfig(unittest.TestCase):
+    def test_get_config_valid(self):
+        config = {"BLOB_STORAGE_CONNECTION_STRING": "value1",
+                  "BLOB_CONTAINER_NAME": "value2",
+                  "EVENT_HUB_CONNECTION_STRING": "value3",
+                  "EVENT_HUB_NAME": "value4",
+                  "RECEIVE_DURATION": "value5",
+                  "SEND_COUNT": "value6"} # input dict
+        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6") # expected tuple
+
+        ret_out = pylanche.get_config(config) # output return
+
+        self.assertEqual(ret_out, ret_ans)
+    
+    def test_get_config_invalid(self):
+        config = {"key": "value"} # input dict
+        ret_ans = None # expected return
+
+        ret_out = pylanche.get_config(config) # output return
+
+        self.assertEqual(ret_out, ret_ans)
 
 if __name__ == "__main__":
     unittest.main()
