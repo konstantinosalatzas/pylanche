@@ -25,8 +25,10 @@ async def on_error(partition_context, error):
     # partition_context can be None in the on_error callback.
     if partition_context:
         print("An exception: {} occurred during receiving from Partition: {}.".format(partition_context.partition_id, error))
+        logging.info("An exception: {} occurred during receiving from Partition: {}.".format(partition_context.partition_id, error))
     else:
         print("An exception: {} occurred during the load balance process.".format(error))
+        logging.info("An exception: {} occurred during the load balance process.".format(error))
 
 async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
