@@ -38,6 +38,7 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
         task = asyncio.ensure_future(
             consumer.receive(
                 on_event=on_event,
+                on_error=on_error,
                 starting_position="-1",  # "-1" is from the beginning of the partition.
             )
         )
