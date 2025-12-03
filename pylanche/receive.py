@@ -9,17 +9,26 @@ async def on_event(partition_context, event):
     message = event.body_as_str(encoding="UTF-8")
     
     # Print the event data.
-    print('Received the event: "{}" from the partition with ID: "{}"'.format(message, partition_context.partition_id))
-    logging.info('Received the event: "{}" from the partition with ID: "{}"'.format(message, partition_context.partition_id))
+    print("Received the event: {} from the partition with ID: {}".format(message, partition_context.partition_id))
+    logging.info("Received the event: {} from the partition with ID: {}".format(message, partition_context.partition_id))
     
     # Process the event data.
     data = parse(message)
     if data != None:
-        print('Parsed the message: "{}"'.format(str(data)))
-        logging.info('Parsed the message: "{}"'.format(str(data)))
+        print("Parsed the message: {}".format(str(data)))
+        logging.info("Parsed the message: {}".format(str(data)))
     
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
+
+async def on_error(partition_context, error):
+    # partition_context can be None in the on_error callback.
+    if partition_context:
+        print("An exception: {} occurred during receiving from Partition: {}.".format(partition_context.partition_id, error))
+        logging.info("An exception: {} occurred during receiving from Partition: {}.".format(partition_context.partition_id, error))
+    else:
+        print("An exception: {} occurred during the load balance process.".format(error))
+        logging.info("An exception: {} occurred during the load balance process.".format(error))
 
 async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
@@ -29,6 +38,7 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
         task = asyncio.ensure_future(
             consumer.receive(
                 on_event=on_event,
+                on_error=on_error,
                 starting_position="-1",  # "-1" is from the beginning of the partition.
             )
         )
