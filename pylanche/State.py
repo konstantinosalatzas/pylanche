@@ -1,6 +1,6 @@
 class State:
     def __init__(self, id):
-        self.id = id
+        self.id = id # the id key
         self.events = {}
 
     def update(self, event: dict):
