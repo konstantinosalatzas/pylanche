@@ -83,5 +83,9 @@ class TestState(unittest.TestCase):
     def setUp(self):
         self.state = pylanche.State(id="id")
 
+    def test_update_no_id(self):
+        state = self.state
+        event = {"key": "value"}
+
 if __name__ == "__main__":
     unittest.main()
