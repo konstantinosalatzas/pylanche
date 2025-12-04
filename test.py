@@ -84,8 +84,13 @@ class TestState(unittest.TestCase):
         self.state = pylanche.State(id="id")
 
     def test_update_no_id(self):
-        state = self.state
-        event = {"key": "value"}
+        event = {"key": "value"} # input event
+        state_events_ans = {} # expected state
+
+        self.state.update(event)
+        state_events_out = self.state.events # output state
+
+        self.assertEqual(state_events_out, state_events_ans)
 
 if __name__ == "__main__":
     unittest.main()
