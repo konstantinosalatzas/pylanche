@@ -10,4 +10,4 @@ class State:
             state_events[event[state_id]] = event # upsert state
     
     def push_to_db(self):
-        pass
+        pass # TODO
