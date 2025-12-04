@@ -101,5 +101,17 @@ class TestState(unittest.TestCase):
         
         self.assertEqual(state_events_out, state_events_ans)
 
+    def test_update_existing_event(self):
+        event0 = {"id": "0", "key": "value0"}
+        self.state.update(event0)
+
+        event = {"id": "0", "key": "value"} # input event
+        state_events_ans = {"0": {"id": "0", "key": "value"}} # expected state
+
+        self.state.update(event)
+        state_events_out = self.state.events # output state
+
+        self.assertEqual(state_events_out, state_events_ans)
+
 if __name__ == "__main__":
     unittest.main()
