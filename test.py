@@ -79,5 +79,9 @@ class TestConfig(unittest.TestCase):
 
         self.assertEqual(ret_out, ret_ans)
 
+class TestState(unittest.TestCase):
+    def setUp(self):
+        self.state = pylanche.State(id="id")
+
 if __name__ == "__main__":
     unittest.main()
