@@ -9,6 +9,7 @@ class State:
     def update(self, event: dict):
         state_id = self.id
         state_events = self.events
+
         if state_id in event:
             state_events[event[state_id]] = event # upsert state
     
@@ -20,7 +21,7 @@ class State:
 
         events = {}
         for row in table:
-            events[row[0]] = json.loads(row[1])
+            events[str(row[0])] = json.loads(row[1])
         
         self.events = events
     
