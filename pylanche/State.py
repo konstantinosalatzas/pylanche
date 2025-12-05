@@ -5,6 +5,8 @@ class State:
     def __init__(self, id: str):
         self.id = id # the id key
         self.events = {}
+        self.connection = sqlite3.connect("./pylanche/state.db")
+        self.cursor = self.connection.cursor()
 
     def update(self, event: dict):
         state_id = self.id
@@ -14,10 +16,7 @@ class State:
             state_events[event[state_id]] = event # upsert state
     
     def pull_from_db(self):
-        connection = sqlite3.connect("./pylanche/state.db")
-        cursor = connection.cursor()
-
-        table = cursor.execute("SELECT * FROM state").fetchall()
+        table = self.cursor.execute("SELECT * FROM state").fetchall()
 
         events = {}
         for row in table:
@@ -32,8 +31,7 @@ class State:
         for id in events:
             rows.append((id, json.dumps(events[id])))
         
-        connection = sqlite3.connect("./pylanche/state.db")
-        cursor = connection.cursor()
-        cursor.execute("DELETE FROM state")
-        cursor.executemany("INSERT INTO state VALUES (?, ?)", rows)
-        connection.commit()
+        # TODO: optimize
+        self.cursor.execute("DELETE FROM state")
+        self.cursor.executemany("INSERT INTO state VALUES (?, ?)", rows)
+        self.connection.commit()
