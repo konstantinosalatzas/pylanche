@@ -4,6 +4,7 @@ import logging
 from azure.eventhub.aio import EventHubConsumerClient
 
 from pylanche.process import parse
+from pylanche.State import State
 
 async def on_event(partition_context, event):
     message = event.body_as_str(encoding="UTF-8")
@@ -17,6 +18,10 @@ async def on_event(partition_context, event):
     if data != None:
         print("Parsed the message: {}".format(str(data)))
         logging.info("Parsed the message: {}".format(str(data)))
+        state = State(id="id")
+        print(state.id)
+        state.update(data)
+        print(state.events)
     
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
