@@ -22,8 +22,3 @@ class State:
     
     def push_to_db(self):
         pass # TODO
-
-# Dev
-state = State(id="id")
-state.pull_from_db()
-print(state.events)

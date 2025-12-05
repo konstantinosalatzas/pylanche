@@ -20,7 +20,9 @@ async def on_event(partition_context, event):
         logging.info("Parsed the message: {}".format(str(data)))
         
         state = State(id="id")
-        print(state.id)
+        print(state.events)
+        state.pull_from_db()
+        print(state.events)
         state.update(data)
         print(state.events)
     
