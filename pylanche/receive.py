@@ -25,7 +25,7 @@ async def on_event(partition_context, event):
         print(state.events)
         state.update(data)
         print(state.events)
-        #state.push_to_db()
+        state.push_to_db()
     
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)

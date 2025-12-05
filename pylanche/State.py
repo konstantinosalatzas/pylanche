@@ -29,10 +29,11 @@ class State:
         events = self.events
         
         rows = []
-        for _ in events:
-            pass # TODO
+        for id in events:
+            rows.append((id, json.dumps(events[id])))
         
         connection = sqlite3.connect("./pylanche/state.db")
         cursor = connection.cursor()
+        cursor.execute("DELETE FROM state")
         cursor.executemany("INSERT INTO state VALUES (?, ?)", rows)
         connection.commit()
