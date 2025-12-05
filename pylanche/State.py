@@ -12,11 +12,18 @@ class State:
             state_events[event[state_id]] = event # upsert state
     
     def pull_from_db(self):
-        connection = sqlite3.connect("../pylanche/state.db")
+        connection = sqlite3.connect("./pylanche/state.db")
         cursor = connection.cursor()
-        res = cursor.execute("SELECT * FROM state")
-        res = res.fetchall()
-        pass # TODO
+        table = cursor.execute("SELECT * FROM state").fetchall()
+        events = {}
+        for row in table:
+            events[row[0]] = row[1]
+        self.events = events
     
     def push_to_db(self):
         pass # TODO
+
+# Dev
+state = State(id="id")
+state.pull_from_db()
+print(state.events)
