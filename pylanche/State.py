@@ -1,4 +1,5 @@
 import sqlite3
+import json
 
 class State:
     def __init__(self, id: str):
@@ -19,7 +20,7 @@ class State:
 
         events = {}
         for row in table:
-            events[row[0]] = row[1]
+            events[row[0]] = json.loads(row[1])
         
         self.events = events
     
