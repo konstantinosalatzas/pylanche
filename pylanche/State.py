@@ -9,5 +9,8 @@ class State:
         if state_id in event:
             state_events[event[state_id]] = event # upsert state
     
+    def pull_from_db(self):
+        pass # TODO
+    
     def push_to_db(self):
         pass # TODO
