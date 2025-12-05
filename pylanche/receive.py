@@ -20,15 +20,20 @@ async def on_event(partition_context, event):
         logging.info("Parsed the message: {}".format(str(data)))
         
         state = State(id="id")
-        print(state.events)
+        print("Created state: {}".format(str(state.events)))
+        logging.info("Created state: {}".format(str(state.events)))
 
         state.pull_from_db()
-        print(state.events)
+        print("Pulled state: {}".format(str(state.events)))
+        logging.info("Pulled state: {}".format(str(state.events)))
 
         state.update(data)
-        print(state.events)
+        print("Updated state: {}".format(str(state.events)))
+        logging.info("Updated state: {}".format(str(state.events)))
 
         state.push_to_db()
+        print("Pushed state.")
+        logging.info("Pushed state.")
     
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
