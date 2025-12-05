@@ -27,8 +27,8 @@ class State:
         events = self.events
         
         rows = []
-        for id in events:
-            rows.append((id, events[id]))
+        for _ in events:
+            pass # TODO
         
         connection = sqlite3.connect("./pylanche/state.db")
         cursor = connection.cursor()
