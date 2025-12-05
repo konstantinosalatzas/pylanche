@@ -14,11 +14,23 @@ class State:
     def pull_from_db(self):
         connection = sqlite3.connect("./pylanche/state.db")
         cursor = connection.cursor()
+
         table = cursor.execute("SELECT * FROM state").fetchall()
+
         events = {}
         for row in table:
             events[row[0]] = row[1]
+        
         self.events = events
     
     def push_to_db(self):
-        pass # TODO
+        events = self.events
+        
+        rows = []
+        for id in events:
+            rows.append((id, events[id]))
+        
+        connection = sqlite3.connect("./pylanche/state.db")
+        cursor = connection.cursor()
+        cursor.executemany("INSERT INTO state VALUES (?, ?)", rows)
+        connection.commit()
