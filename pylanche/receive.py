@@ -21,10 +21,13 @@ async def on_event(partition_context, event):
         
         state = State(id="id")
         print(state.events)
+
         state.pull_from_db()
         print(state.events)
+
         state.update(data)
         print(state.events)
+
         state.push_to_db()
     
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
