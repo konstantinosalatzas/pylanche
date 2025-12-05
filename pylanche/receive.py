@@ -18,6 +18,7 @@ async def on_event(partition_context, event):
     if data != None:
         print("Parsed the message: {}".format(str(data)))
         logging.info("Parsed the message: {}".format(str(data)))
+        
         state = State(id="id")
         print(state.id)
         state.update(data)
