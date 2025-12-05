@@ -1,5 +1,5 @@
 class State:
-    def __init__(self, id):
+    def __init__(self, id: str):
         self.id = id # the id key
         self.events = {}
 
