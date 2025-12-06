@@ -1,5 +1,14 @@
 import sqlite3
 import json
+import logging
+
+def get_config(config: dict[str, str]) -> str  | None:
+    try:
+        STATE_ID = config['STATE_ID']
+    except Exception as error:
+        logging.info(str(error))
+        return None
+    return STATE_ID
 
 # Holds the event processing state of the execution.
 class State:
