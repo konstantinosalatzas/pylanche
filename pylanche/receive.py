@@ -20,6 +20,7 @@ async def on_event(partition_context, event):
         print("Parsed the message: {}".format(str(data)))
         logging.info("Parsed the message: {}".format(str(data)))
 
+        # Pull, update and push state.
         try:
             state = State(id="id")
             print("Created state.")
