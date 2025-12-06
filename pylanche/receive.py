@@ -53,6 +53,8 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
 
     state = State(id="id")
     state.clean_up()
+    print("Cleaned up state.")
+    logging.info("Cleaned up state.")
 
     async with consumer:
         task = asyncio.ensure_future(
