@@ -19,7 +19,7 @@ async def on_event(partition_context, event):
         print("Parsed the message: {}".format(str(data)))
         logging.info("Parsed the message: {}".format(str(data)))
         
-        state = State(id="id") # TODO
+        state = State(id="id")
         print("Created state.")
         logging.info("Created state.")
 
