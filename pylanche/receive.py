@@ -52,7 +52,7 @@ async def on_error(partition_context, error):
         print("An exception: {} occurred during the load balance process.".format(error))
         logging.info("An exception: {} occurred during the load balance process.".format(error))
 
-async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str, STATE_ID: str):
+async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
     logging.info("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
 

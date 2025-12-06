@@ -81,7 +81,7 @@ class TestConfig(unittest.TestCase):
 
 class TestState(unittest.TestCase):
     def setUp(self):
-        self.state = pylanche.State(id="id")
+        self.state = pylanche.State()
 
     def test_update_no_id(self):
         event = {"key": "value"} # input event
