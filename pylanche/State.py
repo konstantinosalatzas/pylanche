@@ -1,6 +1,7 @@
 import sqlite3
 import json
 
+# Holds the event processing state of the execution.
 class State:
     def __init__(self, id: str):
         self.id = id # the id key
