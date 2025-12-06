@@ -51,6 +51,9 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
     logging.info("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
 
+    state = State(id="id")
+    state.clean_up()
+
     async with consumer:
         task = asyncio.ensure_future(
             consumer.receive(
