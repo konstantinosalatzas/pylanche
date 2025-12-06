@@ -20,7 +20,7 @@ async def on_event(partition_context, event):
         print("Parsed the message: {}".format(str(data)))
         logging.info("Parsed the message: {}".format(str(data)))
 
-        # Pull, update and push state.
+        # Pull, update and push the event processing state.
         try:
             state = State(id="id")
             print("Created state.")
@@ -56,10 +56,14 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
     logging.info("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
 
-    state = State(id="id")
-    state.clean_up()
-    print("Cleaned up state.")
-    logging.info("Cleaned up state.")
+    # Prepare event processing state.
+    try:
+        state = State(id="id")
+        state.clean_up()
+        print("Cleaned up state.")
+        logging.info("Cleaned up state.")
+    except Exception as error:
+        logging.info(str(error))
 
     async with consumer:
         task = asyncio.ensure_future(
