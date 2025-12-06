@@ -1,10 +1,33 @@
 import sqlite3
 import json
+import logging
+import os
+
+def get_config(config: dict[str, str]) -> str  | None:
+    try:
+        STATE_ID = config['STATE_ID']
+    except Exception as error:
+        logging.info(str(error))
+        return None
+    return STATE_ID
 
 # Holds the event processing state of the execution.
 class State:
-    def __init__(self, id: str):
-        self.id = id # the id key
+    def __init__(self):
+        # Get the environment variables.
+        config = get_config(os.environ)
+        if config == None:
+            logging.info("Failed to get the configuration values from the environment variables.")
+            # Read the configuration file.
+            with open("./pylanche/config.json", "r") as config_file:
+                config = get_config(json.load(config_file))
+                if config == None:
+                    logging.info("Failed to get the configuration values from the configuration file.")
+
+        STATE_ID = config
+        logging.info("Got the configuration values.")
+
+        self.id = STATE_ID
         self.events = {} # {'0': {'id': '0', 'key': 'value', ...}, ...}
         self.connection = sqlite3.connect("./pylanche/state.db")
         self.cursor = self.connection.cursor()
