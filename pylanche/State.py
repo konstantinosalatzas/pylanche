@@ -3,8 +3,8 @@ import json
 
 # Holds the event processing state of the execution.
 class State:
-    def __init__(self, id: str):
-        self.id = id # the id key
+    def __init__(self):
+        self.id = "id" # TODO
         self.events = {} # {'0': {'id': '0', 'key': 'value', ...}, ...}
         self.connection = sqlite3.connect("./pylanche/state.db")
         self.cursor = self.connection.cursor()

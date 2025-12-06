@@ -22,7 +22,7 @@ async def on_event(partition_context, event):
 
         # Pull, update and push the event processing state.
         try:
-            state = State(id="id")
+            state = State()
             print("Created state.")
             logging.info("Created state.")
 
@@ -58,7 +58,7 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str, STATE_ID
 
     # Prepare event processing state.
     try:
-        state = State(id="id")
+        state = State()
         state.clean_up()
         print("Cleaned up state.")
         logging.info("Cleaned up state.")
