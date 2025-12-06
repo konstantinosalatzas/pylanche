@@ -15,25 +15,29 @@ async def on_event(partition_context, event):
     
     # Process the event data.
     data = parse(message)
+
     if data != None:
         print("Parsed the message: {}".format(str(data)))
         logging.info("Parsed the message: {}".format(str(data)))
-        
-        state = State(id="id")
-        print("Created state.")
-        logging.info("Created state.")
 
-        state.pull_from_db()
-        print("Pulled state: {}".format(str(state.events)))
-        logging.info("Pulled state: {}".format(str(state.events)))
+        try:
+            state = State(id="id")
+            print("Created state.")
+            logging.info("Created state.")
 
-        state.update(data)
-        print("Updated state: {}".format(str(state.events)))
-        logging.info("Updated state: {}".format(str(state.events)))
+            state.pull_from_db()
+            print("Pulled state: {}".format(str(state.events)))
+            logging.info("Pulled state: {}".format(str(state.events)))
 
-        state.push_to_db()
-        print("Pushed state.")
-        logging.info("Pushed state.")
+            state.update(data)
+            print("Updated state: {}".format(str(state.events)))
+            logging.info("Updated state: {}".format(str(state.events)))
+
+            state.push_to_db()
+            print("Pushed state.")
+            logging.info("Pushed state.")
+        except Exception as error:
+            logging.info(str(error))
     
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
