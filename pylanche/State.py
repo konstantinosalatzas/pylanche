@@ -1,10 +1,11 @@
 import sqlite3
 import json
 
+# Holds the event processing state of the execution.
 class State:
     def __init__(self, id: str):
         self.id = id # the id key
-        self.events = {}
+        self.events = {} # {'0': {'id': '0', 'key': 'value', ...}, ...}
         self.connection = sqlite3.connect("./pylanche/state.db")
         self.cursor = self.connection.cursor()
 
@@ -31,7 +32,11 @@ class State:
         for id in events:
             rows.append((id, json.dumps(events[id])))
         
-        # TODO: optimize
+        # TODO
         self.cursor.execute("DELETE FROM state")
         self.cursor.executemany("INSERT INTO state VALUES (?, ?)", rows)
+        self.connection.commit()
+    
+    def clean_up(self):
+        self.cursor.execute("DELETE FROM state")
         self.connection.commit()

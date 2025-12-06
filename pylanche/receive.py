@@ -15,20 +15,30 @@ async def on_event(partition_context, event):
     
     # Process the event data.
     data = parse(message)
+
     if data != None:
         print("Parsed the message: {}".format(str(data)))
         logging.info("Parsed the message: {}".format(str(data)))
-        
-        state = State(id="id")
-        print(state.events)
 
-        state.pull_from_db()
-        print(state.events)
+        # Pull, update and push the event processing state.
+        try:
+            state = State(id="id")
+            print("Created state.")
+            logging.info("Created state.")
 
-        state.update(data)
-        print(state.events)
+            state.pull_from_db()
+            print("Pulled state: {}".format(str(state.events)))
+            logging.info("Pulled state: {}".format(str(state.events)))
 
-        state.push_to_db()
+            state.update(data)
+            print("Updated state: {}".format(str(state.events)))
+            logging.info("Updated state: {}".format(str(state.events)))
+
+            state.push_to_db()
+            print("Pushed state.")
+            logging.info("Pushed state.")
+        except Exception as error:
+            logging.info(str(error))
     
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
@@ -45,6 +55,15 @@ async def on_error(partition_context, error):
 async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
     logging.info("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
+
+    # Prepare event processing state.
+    try:
+        state = State(id="id")
+        state.clean_up()
+        print("Cleaned up state.")
+        logging.info("Cleaned up state.")
+    except Exception as error:
+        logging.info(str(error))
 
     async with consumer:
         task = asyncio.ensure_future(
