@@ -79,5 +79,5 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str, STATE_ID
     print("Consumer has stopped receiving.")
     logging.info("Consumer has stopped receiving.")
 
-def receive(consumer: EventHubConsumerClient, RECEIVE_DURATION: str, STATE_ID: str):
-    asyncio.run(main(consumer, RECEIVE_DURATION, STATE_ID))
+def receive(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
+    asyncio.run(main(consumer, RECEIVE_DURATION))
