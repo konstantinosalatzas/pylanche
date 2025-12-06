@@ -62,6 +62,6 @@ class Client:
 
     def perform(self, op: str):
         if op == "receive":
-            receive(self.consumer, self.RECEIVE_DURATION)
+            receive(self.consumer, self.RECEIVE_DURATION, self.STATE_ID)
         if op == "send":
             send(self.producer, self.SEND_COUNT)

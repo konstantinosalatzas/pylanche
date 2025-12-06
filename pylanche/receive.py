@@ -52,7 +52,7 @@ async def on_error(partition_context, error):
         print("An exception: {} occurred during the load balance process.".format(error))
         logging.info("An exception: {} occurred during the load balance process.".format(error))
 
-async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
+async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str, STATE_ID: str):
     print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
     logging.info("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
 
@@ -79,5 +79,5 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
     print("Consumer has stopped receiving.")
     logging.info("Consumer has stopped receiving.")
 
-def receive(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
-    asyncio.run(main(consumer, RECEIVE_DURATION))
+def receive(consumer: EventHubConsumerClient, RECEIVE_DURATION: str, STATE_ID: str):
+    asyncio.run(main(consumer, RECEIVE_DURATION, STATE_ID))
