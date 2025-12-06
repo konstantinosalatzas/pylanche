@@ -31,7 +31,11 @@ class State:
         for id in events:
             rows.append((id, json.dumps(events[id])))
         
-        # TODO: optimize
+        # TODO
         self.cursor.execute("DELETE FROM state")
         self.cursor.executemany("INSERT INTO state VALUES (?, ?)", rows)
+        self.connection.commit()
+    
+    def clean_up(self):
+        self.cursor.execute("DELETE FROM state")
         self.connection.commit()
