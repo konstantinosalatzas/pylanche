@@ -19,9 +19,9 @@ async def on_event(partition_context, event):
         print("Parsed the message: {}".format(str(data)))
         logging.info("Parsed the message: {}".format(str(data)))
         
-        state = State(id="id")
-        print("Created state: {}".format(str(state.events)))
-        logging.info("Created state: {}".format(str(state.events)))
+        state = State(id="id") # TODO
+        print("Created state.")
+        logging.info("Created state.")
 
         state.pull_from_db()
         print("Pulled state: {}".format(str(state.events)))
