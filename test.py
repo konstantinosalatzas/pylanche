@@ -64,10 +64,11 @@ class TestConfig(unittest.TestCase):
                   "EVENT_HUB_CONNECTION_STRING": "value3",
                   "EVENT_HUB_NAME": "value4",
                   "RECEIVE_DURATION": "value5",
-                  "SEND_COUNT": "value6"} # input dict
-        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6") # expected tuple
+                  "SEND_COUNT": "value6",
+                  "STATE_ID": "value7"} # input dict
+        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6", "value7") # expected tuple
 
-        ret_out = pylanche.get_config(config) # output return
+        ret_out = pylanche.utils.get_config(config) # output return
 
         self.assertEqual(ret_out, ret_ans)
     
@@ -75,7 +76,7 @@ class TestConfig(unittest.TestCase):
         config = {"key": "value"} # input dict
         ret_ans = None # expected return
 
-        ret_out = pylanche.get_config(config) # output return
+        ret_out = pylanche.utils.get_config(config) # output return
 
         self.assertEqual(ret_out, ret_ans)
 
