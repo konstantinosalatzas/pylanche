@@ -3,13 +3,7 @@ import json
 import logging
 import os
 
-def get_config(config: dict[str, str]) -> str  | None:
-    try:
-        STATE_ID = config['STATE_ID']
-    except Exception as error:
-        logging.info(str(error))
-        return None
-    return STATE_ID
+from pylanche.utils import get_config
 
 # Holds the event processing state of the execution.
 class State:
@@ -24,7 +18,7 @@ class State:
                 if config == None:
                     logging.info("Failed to get the configuration values from the configuration file.")
 
-        STATE_ID = config
+        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT, STATE_ID) = config
         logging.info("Got the configuration values.")
 
         self.id = STATE_ID
