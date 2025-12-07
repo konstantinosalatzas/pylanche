@@ -1,4 +1,6 @@
 import logging
+import os
+import json
 
 def get_config(config: dict[str, str]) -> tuple[str, ...]  | None:
     try:
@@ -15,4 +17,12 @@ def get_config(config: dict[str, str]) -> tuple[str, ...]  | None:
     return (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT, STATE_ID)
 
 def get_config_from_environ_or_file():
-    pass # TODO
+        # Get the environment variables.
+        config = get_config(os.environ)
+        if config == None:
+            logging.info("Failed to get the configuration values from the environment variables.")
+            # Read the configuration file.
+            with open("./pylanche/config.json", "r") as config_file:
+                config = get_config(json.load(config_file))
+                if config == None:
+                    logging.info("Failed to get the configuration values from the configuration file.")
