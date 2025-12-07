@@ -13,3 +13,6 @@ def get_config(config: dict[str, str]) -> tuple[str, ...]  | None:
         logging.info(str(error))
         return None
     return (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT, STATE_ID)
+
+def get_config_from_environ_or_file():
+    pass # TODO
