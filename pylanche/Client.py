@@ -8,20 +8,11 @@ from azure.eventhub.aio import EventHubProducerClient
 
 from pylanche.receive import receive
 from pylanche.send import send
-from pylanche.utils import get_config
+from pylanche.utils import get_config_from_environ_or_file
 
 class Client:
     def __init__(self, op: str):
-        # Get the environment variables.
-        config = get_config(os.environ)
-        if config == None:
-            logging.info("Failed to get the configuration values from the environment variables.")
-            # Read the configuration file.
-            with open("./pylanche/config.json", "r") as config_file:
-                config = get_config(json.load(config_file))
-                if config == None:
-                    logging.info("Failed to get the configuration values from the configuration file.")
-
+        config = get_config_from_environ_or_file()
         (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT, STATE_ID) = config
         logging.info("Got the configuration values.")
 
