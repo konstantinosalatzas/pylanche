@@ -1,7 +1,6 @@
 import sqlite3
 import json
 import logging
-import os
 
 from pylanche.utils import get_config_from_environ_or_file
 

@@ -1,5 +1,3 @@
-import os
-import json
 import logging
 
 from azure.eventhub.extensions.checkpointstoreblobaio import BlobCheckpointStore
