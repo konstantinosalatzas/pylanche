@@ -16,6 +16,7 @@ def get_config(config: dict[str, str]) -> tuple[str, ...]  | None:
         return None
     return (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT, STATE_ID)
 
+# Call get_config() with input depending on the configuration.
 def get_config_from_environ_or_file() -> tuple[str, ...]:
         # Get the environment variables.
         config = get_config(os.environ)
