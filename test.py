@@ -4,6 +4,7 @@ import azure.functions as func
 
 from function_app import http_trigger
 
+# end-to-end tests
 class TestFunctionApp(unittest.TestCase):
     def test_http_trigger_receive(self):
         request = func.HttpRequest(method="POST",
@@ -39,6 +40,8 @@ class TestFunctionApp(unittest.TestCase):
         response = f(request) # output response
 
         self.assertEqual(response.status_code, 400)
+
+# unit tests
 
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
