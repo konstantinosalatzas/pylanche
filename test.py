@@ -4,6 +4,7 @@ import azure.functions as func
 
 from function_app import http_trigger
 
+# end-to-end tests
 class TestFunctionApp(unittest.TestCase):
     def test_http_trigger_receive(self):
         request = func.HttpRequest(method="POST",
@@ -40,6 +41,8 @@ class TestFunctionApp(unittest.TestCase):
 
         self.assertEqual(response.status_code, 400)
 
+# unit tests
+
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
         message = '{"id": "test"}' # input JSON string message
@@ -64,10 +67,11 @@ class TestConfig(unittest.TestCase):
                   "EVENT_HUB_CONNECTION_STRING": "value3",
                   "EVENT_HUB_NAME": "value4",
                   "RECEIVE_DURATION": "value5",
-                  "SEND_COUNT": "value6"} # input dict
-        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6") # expected tuple
+                  "SEND_COUNT": "value6",
+                  "STATE_ID": "value7"} # input dict
+        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6", "value7") # expected tuple
 
-        ret_out = pylanche.get_config(config) # output return
+        ret_out = pylanche.utils.get_config(config) # output return
 
         self.assertEqual(ret_out, ret_ans)
     
@@ -75,7 +79,7 @@ class TestConfig(unittest.TestCase):
         config = {"key": "value"} # input dict
         ret_ans = None # expected return
 
-        ret_out = pylanche.get_config(config) # output return
+        ret_out = pylanche.utils.get_config(config) # output return
 
         self.assertEqual(ret_out, ret_ans)
 
