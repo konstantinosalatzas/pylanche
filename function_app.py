@@ -20,7 +20,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     if op not in ["receive", "send"]:
         return func.HttpResponse(
-                "Pass an operation in the query string or in the request body to receive or send events.",
+                "Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
                 status_code=400
         )
     
