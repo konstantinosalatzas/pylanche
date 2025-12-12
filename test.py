@@ -67,9 +67,8 @@ class TestConfig(unittest.TestCase):
                   "EVENT_HUB_CONNECTION_STRING": "value3",
                   "EVENT_HUB_NAME": "value4",
                   "RECEIVE_DURATION": "value5",
-                  "SEND_COUNT": "value6",
-                  "STATE_ID": "value7"} # input dict
-        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6", "value7") # expected tuple
+                  "SEND_COUNT": "value6"} # input dict
+        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6") # expected tuple
 
         ret_out = pylanche.utils.get_config(config) # output return
 
@@ -82,40 +81,6 @@ class TestConfig(unittest.TestCase):
         ret_out = pylanche.utils.get_config(config) # output return
 
         self.assertEqual(ret_out, ret_ans)
-
-class TestState(unittest.TestCase):
-    def setUp(self):
-        self.state = pylanche.State()
-
-    def test_update_no_id(self):
-        event = {"key": "value"} # input event
-        state_events_ans = {} # expected state
-
-        self.state.update(event)
-        state_events_out = self.state.events # output state
-
-        self.assertEqual(state_events_out, state_events_ans)
-
-    def test_update_not_existing_event(self):
-        event = {"id": "0", "key": "value"} # input event
-        state_events_ans = {"0": {"id": "0", "key": "value"}}
-        
-        self.state.update(event)
-        state_events_out = self.state.events # output state
-        
-        self.assertEqual(state_events_out, state_events_ans)
-
-    def test_update_existing_event(self):
-        event0 = {"id": "0", "key": "value0"}
-        self.state.update(event0)
-
-        event = {"id": "0", "key": "value"} # input event
-        state_events_ans = {"0": {"id": "0", "key": "value"}} # expected state
-
-        self.state.update(event)
-        state_events_out = self.state.events # output state
-
-        self.assertEqual(state_events_out, state_events_ans)
 
 if __name__ == "__main__":
     unittest.main()

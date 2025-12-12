@@ -11,7 +11,7 @@ from pylanche.utils import get_config_from_environ_or_file
 class Client:
     def __init__(self, op: str):
         config = get_config_from_environ_or_file()
-        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT, STATE_ID) = config
+        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = config
         logging.info("Got the configuration values.")
 
         if op == "receive":
