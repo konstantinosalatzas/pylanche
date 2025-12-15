@@ -15,9 +15,9 @@ async def main(producer: EventHubProducerClient, SEND_COUNT: str):
 
         # Add events to the batch.
         for i in range(0, int(SEND_COUNT)):
+            #event_data_str = '{"id": "'+str(i+1)+'"}'
             event_data_dict = {"id": str(i+1)}
             event_data_str = json.dumps(event_data_dict)
-            #event_data_str = '{"id": "'+str(i+1)+'"}'
             event_data_batch.add(EventData(event_data_str))
         
         # Send the batch of events to the event hub.
