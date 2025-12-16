@@ -3,6 +3,7 @@ import logging
 from azure.eventhub.extensions.checkpointstoreblobaio import BlobCheckpointStore
 from azure.eventhub.aio import EventHubConsumerClient
 from azure.eventhub.aio import EventHubProducerClient
+from azure.storage.blob import BlobServiceClient
 
 from pylanche.receive import receive
 from pylanche.send import send
