@@ -34,6 +34,8 @@ class Client:
             self.producer = EventHubProducerClient.from_connection_string(
                 conn_str=EVENT_HUB_CONNECTION_STRING, eventhub_name=EVENT_HUB_NAME
             )
+            # Create the BlobServiceClient object.
+            blob_service_client = BlobServiceClient.from_connection_string(BLOB_STORAGE_CONNECTION_STRING)
             self.SEND_COUNT = SEND_COUNT
 
     def perform(self, op: str):
