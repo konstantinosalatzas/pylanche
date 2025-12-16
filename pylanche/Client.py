@@ -36,6 +36,7 @@ class Client:
             )
             # Create the BlobServiceClient object.
             blob_service_client = BlobServiceClient.from_connection_string(BLOB_STORAGE_CONNECTION_STRING)
+            container_client = blob_service_client.get_container_client(container="pylanche-data")
             self.SEND_COUNT = SEND_COUNT
 
     def perform(self, op: str):
