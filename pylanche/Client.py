@@ -34,9 +34,11 @@ class Client:
             self.producer = EventHubProducerClient.from_connection_string(
                 conn_str=EVENT_HUB_CONNECTION_STRING, eventhub_name=EVENT_HUB_NAME
             )
-            # Create the BlobServiceClient object.
+            # Connect to storage account.
             blob_service_client = BlobServiceClient.from_connection_string(BLOB_STORAGE_CONNECTION_STRING)
+            # Create container client.
             container_client = blob_service_client.get_container_client(container=BLOB_CONTAINER_NAME)
+            # Download file from container.
             with open(file="/tmp/pylanche.csv", mode="wb") as tmp_file:
                 tmp_file.write(container_client.download_blob("data.csv").readall())
             self.SEND_COUNT = SEND_COUNT
