@@ -37,6 +37,8 @@ class Client:
             # Create the BlobServiceClient object.
             blob_service_client = BlobServiceClient.from_connection_string(BLOB_STORAGE_CONNECTION_STRING)
             container_client = blob_service_client.get_container_client(container=BLOB_CONTAINER_NAME)
+            with open(file="/tmp/pylanche.csv", mode="wb") as tmp_file:
+                tmp_file.write(container_client.download_blob("data.csv").readall())
             self.SEND_COUNT = SEND_COUNT
 
     def perform(self, op: str):
