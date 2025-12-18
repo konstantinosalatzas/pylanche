@@ -10,6 +10,8 @@ async def main(producer: EventHubProducerClient, container_client: ContainerClie
     # Download file from container.
     with open(file="/tmp/pylanche.csv", mode="wb") as tmp_file:
         tmp_file.write(container_client.download_blob("data.csv").readall())
+        print("Downloaded file from container.")
+        logging.info("Downloaded file from container.")
 
     print("Producer will send {} events.".format(SEND_COUNT))
     logging.info("Producer will send {} events.".format(SEND_COUNT))
