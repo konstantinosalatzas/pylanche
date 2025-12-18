@@ -37,14 +37,11 @@ class Client:
             # Connect to storage account.
             blob_service_client = BlobServiceClient.from_connection_string(BLOB_STORAGE_CONNECTION_STRING)
             # Create container client.
-            container_client = blob_service_client.get_container_client(container=BLOB_CONTAINER_NAME)
-            # Download file from container.
-            with open(file="/tmp/pylanche.csv", mode="wb") as tmp_file:
-                tmp_file.write(container_client.download_blob("data.csv").readall())
+            self.container_client = blob_service_client.get_container_client(container=BLOB_CONTAINER_NAME)
             self.SEND_COUNT = SEND_COUNT
 
     def perform(self, op: str):
         if op == "receive":
             receive(self.consumer, self.RECEIVE_DURATION)
         if op == "send":
-            send(self.producer, self.SEND_COUNT)
+            send(self.producer, self.container_client, self.SEND_COUNT)
