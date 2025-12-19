@@ -14,6 +14,8 @@ async def main(producer: EventHubProducerClient, container_client: ContainerClie
         print("Downloaded file from container.")
         logging.info("Downloaded file from container.")
 
+        reader = csv.DictReader(tmp_file)
+
     print("Producer will send {} events.".format(SEND_COUNT))
     logging.info("Producer will send {} events.".format(SEND_COUNT))
 
