@@ -10,7 +10,7 @@ from azure.storage.blob import ContainerClient
 async def main(producer: EventHubProducerClient, container_client: ContainerClient, FILE_NAME: str, SEND_COUNT: str):
     # Download file from container.
     with open(file="/tmp/pylanche.csv", mode="wb") as tmp_file:
-        tmp_file.write(container_client.download_blob("data.csv").readall())
+        tmp_file.write(container_client.download_blob(FILE_NAME).readall())
         print("Downloaded file from container.")
         logging.info("Downloaded file from container.")
 
