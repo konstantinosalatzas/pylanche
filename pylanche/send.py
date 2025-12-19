@@ -14,6 +14,7 @@ async def main(producer: EventHubProducerClient, container_client: ContainerClie
         print("Downloaded file from container.")
         logging.info("Downloaded file from container.")
 
+    # Read downloaded file.
     with open("/tmp/pylanche.csv") as tmp_file:
         reader = csv.DictReader(tmp_file)
         for row in reader:
