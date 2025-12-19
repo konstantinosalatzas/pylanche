@@ -67,8 +67,9 @@ class TestConfig(unittest.TestCase):
                   "EVENT_HUB_CONNECTION_STRING": "value3",
                   "EVENT_HUB_NAME": "value4",
                   "RECEIVE_DURATION": "value5",
-                  "SEND_COUNT": "value6"} # input dict
-        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6") # expected tuple
+                  "FILE_NAME": "value6",
+                  "SEND_COUNT": "value7"} # input dict
+        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6", "value7") # expected tuple
 
         ret_out = pylanche.utils.get_config(config) # output return
 
