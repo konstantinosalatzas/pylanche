@@ -7,7 +7,7 @@ from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub import EventData
 from azure.storage.blob import ContainerClient
 
-async def main(producer: EventHubProducerClient, container_client: ContainerClient, SEND_COUNT: str):
+async def main(producer: EventHubProducerClient, container_client: ContainerClient, FILE_NAME: str, SEND_COUNT: str):
     # Download file from container.
     with open(file="/tmp/pylanche.csv", mode="wb") as tmp_file:
         tmp_file.write(container_client.download_blob("data.csv").readall())
@@ -55,5 +55,5 @@ async def main(producer: EventHubProducerClient, container_client: ContainerClie
     print("Producer sent {} events.".format(SEND_COUNT))
     logging.info("Producer sent {} events.".format(SEND_COUNT))
 
-def send(producer: EventHubProducerClient, container_client: ContainerClient, SEND_COUNT: str):
-    asyncio.run(main(producer, container_client, SEND_COUNT))
+def send(producer: EventHubProducerClient, container_client: ContainerClient, FILE_NAME: str, SEND_COUNT: str):
+    asyncio.run(main(producer, container_client, FILE_NAME, SEND_COUNT))
