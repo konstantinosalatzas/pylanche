@@ -14,11 +14,20 @@ async def main(producer: EventHubProducerClient, container_client: ContainerClie
         print("Downloaded file from container.")
         logging.info("Downloaded file from container.")
 
-    # Read downloaded file.
-    with open("/tmp/pylanche.csv") as tmp_file:
-        reader = csv.DictReader(tmp_file)
-        for row in reader:
-            print(row)
+    async with producer:
+        # Create a batch.
+        event_data_batch = await producer.create_batch()
+
+        # Add events to the batch.
+        # Read downloaded file.
+        with open("/tmp/pylanche.csv") as tmp_file:
+            reader = csv.DictReader(tmp_file)
+            for row in reader:
+                event_data_str = json.dumps(row)
+                event_data_batch.add(EventData(event_data_str))
+        
+        # Send the batch of events to the event hub.
+        await producer.send_batch(event_data_batch)
 
     print("Producer will send {} events.".format(SEND_COUNT))
     logging.info("Producer will send {} events.".format(SEND_COUNT))
