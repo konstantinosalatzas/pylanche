@@ -9,7 +9,7 @@ from azure.storage.blob import ContainerClient
 
 async def main(producer: EventHubProducerClient, container_client: ContainerClient, FILE_NAME: str, SEND_COUNT: str):
     # Download file from container.
-    with open(file="/tmp/pylanche.csv", mode="wb") as tmp_file:
+    with open(file="/tmp/pylanche_data_to_send.csv", mode="wb") as tmp_file:
         tmp_file.write(container_client.download_blob(FILE_NAME).readall())
         print("Downloaded file from container.")
         logging.info("Downloaded file from container.")
@@ -23,7 +23,7 @@ async def main(producer: EventHubProducerClient, container_client: ContainerClie
 
         # Add events to the batch.
         # Read downloaded file.
-        with open("/tmp/pylanche.csv") as tmp_file:
+        with open("/tmp/pylanche_data_to_send.csv") as tmp_file:
             reader = csv.DictReader(tmp_file)
             for row in reader:
                 event_data_str = json.dumps(row)
