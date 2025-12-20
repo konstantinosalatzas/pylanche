@@ -3,6 +3,7 @@ import logging
 from azure.eventhub.extensions.checkpointstoreblobaio import BlobCheckpointStore
 from azure.eventhub.aio import EventHubConsumerClient
 from azure.eventhub.aio import EventHubProducerClient
+from azure.storage.blob import BlobServiceClient
 
 from pylanche.receive import receive
 from pylanche.send import send
@@ -11,7 +12,7 @@ from pylanche.utils import get_config_from_environ_or_file
 class Client:
     def __init__(self, op: str):
         config = get_config_from_environ_or_file()
-        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, SEND_COUNT) = config
+        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, FILE_NAME, SEND_COUNT) = config
         logging.info("Got the configuration values.")
 
         if op == "receive":
@@ -26,6 +27,7 @@ class Client:
                 eventhub_name=EVENT_HUB_NAME,
                 checkpoint_store=checkpoint_store
             )
+
             self.RECEIVE_DURATION = RECEIVE_DURATION
 
         if op == "send":
@@ -33,10 +35,17 @@ class Client:
             self.producer = EventHubProducerClient.from_connection_string(
                 conn_str=EVENT_HUB_CONNECTION_STRING, eventhub_name=EVENT_HUB_NAME
             )
+
+            # Connect to storage account.
+            blob_service_client = BlobServiceClient.from_connection_string(BLOB_STORAGE_CONNECTION_STRING)
+            # Create container client.
+            self.container_client = blob_service_client.get_container_client(container=BLOB_CONTAINER_NAME)
+            self.FILE_NAME = FILE_NAME
+
             self.SEND_COUNT = SEND_COUNT
 
     def perform(self, op: str):
         if op == "receive":
             receive(self.consumer, self.RECEIVE_DURATION)
         if op == "send":
-            send(self.producer, self.SEND_COUNT)
+            send(self.producer, self.container_client, self.FILE_NAME, self.SEND_COUNT)
