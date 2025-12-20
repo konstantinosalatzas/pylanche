@@ -14,6 +14,9 @@ async def main(producer: EventHubProducerClient, container_client: ContainerClie
         print("Downloaded file from container.")
         logging.info("Downloaded file from container.")
 
+    print("Producer will send {} events.".format(SEND_COUNT))
+    logging.info("Producer will send {} events.".format(SEND_COUNT))
+
     async with producer:
         # Create a batch.
         event_data_batch = await producer.create_batch()
@@ -25,16 +28,6 @@ async def main(producer: EventHubProducerClient, container_client: ContainerClie
             for row in reader:
                 event_data_str = json.dumps(row)
                 event_data_batch.add(EventData(event_data_str))
-        
-        # Send the batch of events to the event hub.
-        await producer.send_batch(event_data_batch)
-
-    print("Producer will send {} events.".format(SEND_COUNT))
-    logging.info("Producer will send {} events.".format(SEND_COUNT))
-
-    async with producer:
-        # Create a batch.
-        event_data_batch = await producer.create_batch()
 
         # Add events to the batch.
         for i in range(0, int(SEND_COUNT)):
