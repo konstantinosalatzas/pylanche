@@ -15,6 +15,6 @@ The HTTP trigger expects the input parameter `operation` with the value `receive
 
 ## Configuration
 
-The configuration of Event Hub, checkpoint store, receive duration and send count is done with environment variables or the JSON file:
+The configuration of Event Hub, checkpoint store, receive duration, CSV file and send count is done with environment variables or the JSON file:
 
 [pylanche/config.json](https://github.com/konstantinosalatzas/pylanche/blob/main/pylanche/config_template.json)
