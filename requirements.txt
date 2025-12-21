@@ -6,4 +6,5 @@ azure-functions
 azure-eventhub
 azure-eventhub-checkpointstoreblob-aio
 azure-storage-blob
+azure-ai-textanalytics
 requests
