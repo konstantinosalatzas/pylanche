@@ -1,3 +1,5 @@
+import logging
+
 from azure.ai.textanalytics import TextAnalyticsClient
 
 def anonymize_text(text: str) -> str:
@@ -20,6 +22,7 @@ def recognize_names(client: TextAnalyticsClient, documents: list[str]):
                 print(entity.text, anonymized_text)
     except Exception as error:
         print(error)
+        logging.info(str(error))
 
 def anonymize(client: TextAnalyticsClient):
     documents = ["I trained planche hold to press with Kostas."]
