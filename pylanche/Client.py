@@ -57,3 +57,5 @@ class Client:
             receive(self.consumer, self.RECEIVE_DURATION)
         if op == "send":
             send(self.producer, self.container_client, self.FILE_NAME, self.SEND_COUNT)
+        if op == "anonymize":
+            anonymize(self.text_analytics_client)
