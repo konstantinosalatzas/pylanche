@@ -30,6 +30,18 @@ class TestFunctionApp(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_http_trigger_anonymize(self):
+        request = func.HttpRequest(method="POST",
+                                   body=None,
+                                   url="/api/http_trigger",
+                                   params={"operation": "anonymize"}
+        ) # input request
+
+        f = http_trigger.build().get_user_function()
+        response = f(request) # output response
+
+        self.assertEqual(response.status_code, 200)
+
     def test_http_trigger_no_op(self):
         request = func.HttpRequest(method="POST",
                                    body="{}".encode(),
