@@ -18,7 +18,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         else:
             op = req_body.get('operation')
 
-    if op not in ["receive", "send"]:
+    if op not in ["receive", "send", "anonymize"]:
         return func.HttpResponse(
                 "Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
                 status_code=400
@@ -32,6 +32,8 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             return func.HttpResponse("The function received events from the event hub.")
         if op == "send":
             return func.HttpResponse("The function sent events to the event hub.")
+        if op == "anonymize":
+            return func.HttpResponse("The function performed the anonymization.")
     except Exception as error:
         logging.error(str(error))
         return func.HttpResponse(
