@@ -47,6 +47,7 @@ class Client:
             self.SEND_COUNT = SEND_COUNT
         
         if op == "anonymize":
+            # Create and authenticate client.
             credential = AzureKeyCredential(LANGUAGE_KEY)
             self.text_analytics_client = TextAnalyticsClient(endpoint=LANGUAGE_ENDPOINT, credential=credential)
 
