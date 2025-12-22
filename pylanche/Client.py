@@ -7,9 +7,10 @@ from azure.storage.blob import BlobServiceClient
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 
+from pylanche.utils import get_config_from_environ_or_file
 from pylanche.receive import receive
 from pylanche.send import send
-from pylanche.utils import get_config_from_environ_or_file
+from pylanche.anonymize import anonymize
 
 class Client:
     def __init__(self, op: str):
