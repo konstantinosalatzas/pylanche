@@ -1,5 +1,9 @@
 from azure.ai.textanalytics import TextAnalyticsClient
 
+def anonymize_text(text: str) -> str:
+    anonymized_text = "X"*len(text) # replace all letters with "X"
+    return anonymized_text
+
 def recognize_names(client: TextAnalyticsClient, documents: list[str]):
     print(documents)
     try:
