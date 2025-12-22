@@ -4,6 +4,8 @@ from azure.eventhub.extensions.checkpointstoreblobaio import BlobCheckpointStore
 from azure.eventhub.aio import EventHubConsumerClient
 from azure.eventhub.aio import EventHubProducerClient
 from azure.storage.blob import BlobServiceClient
+from azure.ai.textanalytics import TextAnalyticsClient
+from azure.core.credentials import AzureKeyCredential
 
 from pylanche.receive import receive
 from pylanche.send import send
@@ -43,6 +45,10 @@ class Client:
             self.FILE_NAME = FILE_NAME
 
             self.SEND_COUNT = SEND_COUNT
+        
+        if op == "anonymize":
+            credential = AzureKeyCredential(LANGUAGE_KEY)
+            self.text_analytics_client = TextAnalyticsClient(endpoint=LANGUAGE_ENDPOINT, credential=credential)
 
     def perform(self, op: str):
         if op == "receive":
