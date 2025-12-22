@@ -21,9 +21,8 @@ def recognize_names(client: TextAnalyticsClient, documents: list[str]):
                 anonymized_text = anonymize_text(entity.text)
                 print(entity.text, anonymized_text)
     except Exception as error:
-        print(error)
         logging.info(str(error))
 
 def anonymize(client: TextAnalyticsClient):
-    documents = ["I trained planche hold to press with Kostas."]
+    documents = ["I trained planche hold to press with Konstantinos."]
     recognize_names(client, documents)
