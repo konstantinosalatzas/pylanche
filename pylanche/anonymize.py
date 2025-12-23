@@ -6,8 +6,9 @@ def anonymize_text(text: str) -> str:
     anonymized_text = "X"*len(text) # Replace all letters with "X".
     return anonymized_text
 
-def recognize_names(client: TextAnalyticsClient, documents: list[str]):
+def recognize_names(client: TextAnalyticsClient, text: str):
     try:
+        documents = [text]
         result = client.recognize_entities(documents=documents)[0]
         anonymization = {} # Map names to their anonymized forms.
         for entity in result['entities']:
@@ -25,5 +26,5 @@ def recognize_names(client: TextAnalyticsClient, documents: list[str]):
         logging.info(str(error))
 
 def anonymize(client: TextAnalyticsClient):
-    documents = ["I trained planche hold to press with Konstantinos."]
-    recognize_names(client, documents)
+    text = "I trained planche hold to press with Konstantinos."
+    recognize_names(client, text)
