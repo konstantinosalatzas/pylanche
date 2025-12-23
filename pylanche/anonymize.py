@@ -3,7 +3,7 @@ import logging
 from azure.ai.textanalytics import TextAnalyticsClient
 
 def anonymize_text(text: str) -> str:
-    anonymized_text = "X"*len(text) # replace all letters with "X"
+    anonymized_text = "X"*len(text) # Replace all letters with "X".
     return anonymized_text
 
 def recognize_names(client: TextAnalyticsClient, documents: list[str]):
@@ -12,7 +12,7 @@ def recognize_names(client: TextAnalyticsClient, documents: list[str]):
         for entity in result['entities']:
             print("Text:", entity.text,
                   "Category:", entity.category,
-                  "SubCategory:", entity.subcategory,
+                  "Subcategory:", entity.subcategory,
                   "Confidence Score:", round(entity.confidence_score, 2),
                   "Length:", entity.length,
                   "Offset:", entity.offset)
@@ -24,5 +24,4 @@ def recognize_names(client: TextAnalyticsClient, documents: list[str]):
 
 def anonymize(client: TextAnalyticsClient):
     documents = ["I trained planche hold to press with Konstantinos."]
-    print(documents)
     recognize_names(client, documents)
