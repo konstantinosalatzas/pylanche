@@ -9,6 +9,7 @@ def anonymize_text(text: str) -> str:
 def recognize_names(client: TextAnalyticsClient, documents: list[str]):
     try:
         result = client.recognize_entities(documents=documents)[0]
+        anonymization = {} # Map names to their anonymized forms.
         for entity in result['entities']:
             print("Text:", entity.text,
                   "Category:", entity.category,
