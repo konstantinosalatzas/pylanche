@@ -20,6 +20,7 @@ def recognize_names(client: TextAnalyticsClient, documents: list[str]):
             if entity.category == "Person":
                 anonymized_text = anonymize_text(entity.text)
                 print(entity.text, "->", anonymized_text)
+                anonymization[entity.text] = anonymized_text
     except Exception as error:
         logging.info(str(error))
 
