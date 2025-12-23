@@ -19,7 +19,6 @@ def recognize_names(client: TextAnalyticsClient, text: str) -> dict[str, str] | 
                   "Offset:", entity.offset)
             if entity.category == "Person":
                 anonymized_text = anonymize_text(entity.text)
-                print(entity.text, "->", anonymized_text)
                 anonymization[entity.text] = anonymized_text
         return anonymization
     except Exception as error:
