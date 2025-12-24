@@ -31,6 +31,7 @@ def recognize_names(client: TextAnalyticsClient, text: str) -> dict[str, str] | 
         return None
 
 def anonymize(client: TextAnalyticsClient, text: str):
+    print(text)
     names = recognize_names(client, text)
     print(names)
     text = replace_mapped(text, names)
