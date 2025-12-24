@@ -48,6 +48,9 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         if op == "send":
             return func.HttpResponse("The function sent events to the event hub.")
         if op == "anonymize":
+            if text == None:
+                return func.HttpResponse("The function failed to perform the operation, please check the logs.",
+                                         status_code=500)
             return func.HttpResponse(text)
     except Exception as error:
         logging.error(str(error))
