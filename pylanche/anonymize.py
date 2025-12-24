@@ -22,6 +22,7 @@ def recognize_names(client: TextAnalyticsClient, text: str) -> dict[str, str] | 
                   "Confidence Score:", round(entity.confidence_score, 2),
                   "Length:", entity.length,
                   "Offset:", entity.offset)
+            logging.info("Text: {}, Category: {}, Subcategory: {}, Confidence Score: {}, Length: {}, Offset: {}".format(entity.text, entity.category, entity.subcategory, round(entity.confidence_score, 2), entity.length, entity.offset))
             if entity.category == "Person":
                 anonymized_text = anonymize_text(entity.text)
                 anonymization[entity.text] = anonymized_text
