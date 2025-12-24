@@ -34,7 +34,8 @@ class TestFunctionApp(unittest.TestCase):
         request = func.HttpRequest(method="POST",
                                    body=None,
                                    url="/api/http_trigger",
-                                   params={"operation": "anonymize"}
+                                   params={"operation": "anonymize",
+                                           "text": "Konstantinos did a planche hold to press."}
         ) # input request
 
         f = http_trigger.build().get_user_function()

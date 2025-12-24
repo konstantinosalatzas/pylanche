@@ -23,7 +23,17 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
                 "Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
                 status_code=400
         )
-    
+
+    if op == "anonymize":
+        text = req.params.get('text')
+        if not text:
+            try:
+                req_body = req.get_json()
+            except ValueError:
+                logging.error("The request body does not contain valid JSON data.")
+            else:
+                text = req_body.get('text')
+
     try:
         # Create a client and perform the operation.
         client = pylanche.Client(op)
