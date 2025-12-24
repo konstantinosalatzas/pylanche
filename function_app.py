@@ -41,14 +41,14 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         if op in ["receive", "send"]:
             client.perform(op, None)
         if op == "anonymize":
-            client.perform(op, text)
+            text = client.perform(op, text)
         
         if op == "receive":
             return func.HttpResponse("The function received events from the event hub.")
         if op == "send":
             return func.HttpResponse("The function sent events to the event hub.")
         if op == "anonymize":
-            return func.HttpResponse("The function performed the anonymization.")
+            return func.HttpResponse(text)
     except Exception as error:
         logging.error(str(error))
         return func.HttpResponse(
