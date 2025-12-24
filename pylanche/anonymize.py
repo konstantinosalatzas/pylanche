@@ -34,3 +34,5 @@ def anonymize(client: TextAnalyticsClient):
     text = "I trained planche hold to press with Konstantinos."
     names = recognize_names(client, text)
     print(names)
+    text = replace_mapped(text, names)
+    print(text)
