@@ -30,6 +30,19 @@ class TestFunctionApp(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_http_trigger_anonymize(self):
+        request = func.HttpRequest(method="POST",
+                                   body=None,
+                                   url="/api/http_trigger",
+                                   params={"operation": "anonymize",
+                                           "text": "Konstantinos did a planche hold to press."}
+        ) # input request
+
+        f = http_trigger.build().get_user_function()
+        response = f(request) # output response
+
+        self.assertEqual(response.status_code, 200)
+
     def test_http_trigger_no_op(self):
         request = func.HttpRequest(method="POST",
                                    body="{}".encode(),
@@ -42,6 +55,31 @@ class TestFunctionApp(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
 
 # unit tests
+
+class TestConfig(unittest.TestCase):
+    def test_get_config_valid(self):
+        config = {"BLOB_STORAGE_CONNECTION_STRING": "value1",
+                  "BLOB_CONTAINER_NAME": "value2",
+                  "EVENT_HUB_CONNECTION_STRING": "value3",
+                  "EVENT_HUB_NAME": "value4",
+                  "RECEIVE_DURATION": "value5",
+                  "FILE_NAME": "value6",
+                  "SEND_COUNT": "value7",
+                  "LANGUAGE_KEY": "value8",
+                  "LANGUAGE_ENDPOINT": "value9"} # input dict
+        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6", "value7", "value8", "value9") # expected tuple
+
+        ret_out = pylanche.utils.get_config(config) # output return
+
+        self.assertEqual(ret_out, ret_ans)
+    
+    def test_get_config_invalid(self):
+        config = {"key": "value"} # input dict
+        ret_ans = None # expected return
+
+        ret_out = pylanche.utils.get_config(config) # output return
+
+        self.assertEqual(ret_out, ret_ans)
 
 class TestProcess(unittest.TestCase):
     def test_parse_valid(self):
@@ -60,28 +98,23 @@ class TestProcess(unittest.TestCase):
 
         self.assertEqual(ret_out, ret_ans)
 
-class TestConfig(unittest.TestCase):
-    def test_get_config_valid(self):
-        config = {"BLOB_STORAGE_CONNECTION_STRING": "value1",
-                  "BLOB_CONTAINER_NAME": "value2",
-                  "EVENT_HUB_CONNECTION_STRING": "value3",
-                  "EVENT_HUB_NAME": "value4",
-                  "RECEIVE_DURATION": "value5",
-                  "FILE_NAME": "value6",
-                  "SEND_COUNT": "value7"} # input dict
-        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6", "value7") # expected tuple
+class TestAnonymize(unittest.TestCase):
+    def test_anonymize_text(self):
+        text = "Konstantinos" # input text
+        text_ans = "XXXXXXXXXXXX" # expected text
 
-        ret_out = pylanche.utils.get_config(config) # output return
+        text_out = pylanche.anonymize.anonymize_text(text) # output text
 
-        self.assertEqual(ret_out, ret_ans)
+        self.assertEqual(text_out, text_ans)
     
-    def test_get_config_invalid(self):
-        config = {"key": "value"} # input dict
-        ret_ans = None # expected return
+    def test_replace_mapped(self):
+        text = "Konstantinos did a planche hold to press." # input text
+        map = {"Konstantinos": "XXXXXXXXXXXX"} # input dict
+        text_ans = "XXXXXXXXXXXX did a planche hold to press." # expected text
 
-        ret_out = pylanche.utils.get_config(config) # output return
+        text_out = pylanche.anonymize.replace_mapped(text, map) # output text
 
-        self.assertEqual(ret_out, ret_ans)
+        self.assertEqual(text_out, text_ans)
 
 if __name__ == "__main__":
     unittest.main()

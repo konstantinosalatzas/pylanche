@@ -4,15 +4,18 @@ from azure.eventhub.extensions.checkpointstoreblobaio import BlobCheckpointStore
 from azure.eventhub.aio import EventHubConsumerClient
 from azure.eventhub.aio import EventHubProducerClient
 from azure.storage.blob import BlobServiceClient
+from azure.ai.textanalytics import TextAnalyticsClient
+from azure.core.credentials import AzureKeyCredential
 
+from pylanche.utils import get_config_from_environ_or_file
 from pylanche.receive import receive
 from pylanche.send import send
-from pylanche.utils import get_config_from_environ_or_file
+from pylanche.anonymize import anonymize
 
 class Client:
     def __init__(self, op: str):
         config = get_config_from_environ_or_file()
-        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, FILE_NAME, SEND_COUNT) = config
+        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, FILE_NAME, SEND_COUNT, LANGUAGE_KEY, LANGUAGE_ENDPOINT) = config
         logging.info("Got the configuration values.")
 
         if op == "receive":
@@ -43,9 +46,16 @@ class Client:
             self.FILE_NAME = FILE_NAME
 
             self.SEND_COUNT = SEND_COUNT
+        
+        if op == "anonymize":
+            # Create and authenticate client.
+            credential = AzureKeyCredential(LANGUAGE_KEY)
+            self.text_analytics_client = TextAnalyticsClient(endpoint=LANGUAGE_ENDPOINT, credential=credential)
 
-    def perform(self, op: str):
+    def perform(self, op: str, param: None | str) -> None | str:
         if op == "receive":
-            receive(self.consumer, self.RECEIVE_DURATION)
+            return receive(self.consumer, self.RECEIVE_DURATION)
         if op == "send":
-            send(self.producer, self.container_client, self.FILE_NAME, self.SEND_COUNT)
+            return send(self.producer, self.container_client, self.FILE_NAME, self.SEND_COUNT)
+        if op == "anonymize":
+             return anonymize(self.text_analytics_client, param)
