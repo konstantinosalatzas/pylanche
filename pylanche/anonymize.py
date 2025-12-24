@@ -2,6 +2,9 @@ import logging
 
 from azure.ai.textanalytics import TextAnalyticsClient
 
+def replace_mapped(text: str, map: dict[str, str]) -> str:
+    pass
+
 def anonymize_text(text: str) -> str:
     anonymized_text = "X"*len(text) # Replace all letters with "X".
     return anonymized_text
