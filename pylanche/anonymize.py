@@ -16,13 +16,8 @@ def recognize_names(client: TextAnalyticsClient, text: str) -> dict[str, str] | 
         result = client.recognize_entities(documents=[text])[0]
         anonymization = {} # Map names to their anonymized forms.
         for entity in result['entities']:
-            print("Text:", entity.text,
-                  "Category:", entity.category,
-                  "Subcategory:", entity.subcategory,
-                  "Confidence Score:", round(entity.confidence_score, 2),
-                  "Length:", entity.length,
-                  "Offset:", entity.offset)
-            logging.info("Text: {}, Category: {}, Subcategory: {}, Confidence Score: {}, Length: {}, Offset: {}".format(entity.text, entity.category, entity.subcategory, round(entity.confidence_score, 2), entity.length, entity.offset))
+            print("Text: {}, Category: {}, Subcategory: {}, Confidence Score: {}, Length: {}, Offset: {}".format(entity.text, entity.category, entity.subcategory, entity.confidence_score, entity.length, entity.offset))
+            logging.info("Text: {}, Category: {}, Subcategory: {}, Confidence Score: {}, Length: {}, Offset: {}".format(entity.text, entity.category, entity.subcategory, entity.confidence_score, entity.length, entity.offset))
             if entity.category == "Person":
                 anonymized_text = anonymize_text(entity.text)
                 anonymization[entity.text] = anonymized_text
