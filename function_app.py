@@ -5,34 +5,29 @@ import pylanche
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
-@app.route(route="http_trigger")
-def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info("Python HTTP trigger function processed a request.")
-
-    op = req.params.get('operation')
-    if not op:
+def get_parameter(req: func.HttpRequest, param: str) -> str | None:
+    val = req.params.get(param)
+    if not val:
         try:
             req_body = req.get_json()
         except ValueError:
             logging.error("The request body does not contain valid JSON data.")
         else:
-            op = req_body.get('operation')
+            val = req_body.get(param)
+    return val
+
+@app.route(route="http_trigger")
+def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
+    logging.info("Python HTTP trigger function processed a request.")
+
+    op = get_parameter(req, 'operation')
 
     if op not in ["receive", "send", "anonymize"]:
-        return func.HttpResponse(
-                "Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
-                status_code=400
-        )
+        return func.HttpResponse("Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
+                                 status_code=400)
 
     if op == "anonymize":
-        text = req.params.get('text')
-        if not text:
-            try:
-                req_body = req.get_json()
-            except ValueError:
-                logging.error("The request body does not contain valid JSON data.")
-            else:
-                text = req_body.get('text')
+        text = get_parameter(req, 'text')
 
     try:
         # Create a client and perform the operation.
@@ -54,7 +49,5 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             return func.HttpResponse(anonymized_text)
     except Exception as error:
         logging.error(str(error))
-        return func.HttpResponse(
-                "The function failed to perform the operation, please check the logs.",
-                status_code=500
-        )
+        return func.HttpResponse("The function failed to perform the operation, please check the logs.",
+                                 status_code=500)
