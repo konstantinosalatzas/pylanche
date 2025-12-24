@@ -29,14 +29,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         )
 
     if op == "anonymize":
-        text = req.params.get('text')
-        if not text:
-            try:
-                req_body = req.get_json()
-            except ValueError:
-                logging.error("The request body does not contain valid JSON data.")
-            else:
-                text = req_body.get('text')
+        text = get_parameter(req, 'text')
 
     try:
         # Create a client and perform the operation.
