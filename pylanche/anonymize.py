@@ -41,9 +41,9 @@ def anonymize(client: TextAnalyticsClient, text: str) -> str | None:
     print(names)
     logging.info(names)
 
-    text = replace_mapped(text, names)
+    anonymized_text = replace_mapped(text, names)
 
-    print(text)
-    logging.info(text)
+    print(anonymized_text)
+    logging.info(anonymized_text)
 
-    return text
+    return anonymized_text
