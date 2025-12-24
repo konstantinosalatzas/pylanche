@@ -31,8 +31,19 @@ def recognize_names(client: TextAnalyticsClient, text: str) -> dict[str, str] | 
         return None
 
 def anonymize(client: TextAnalyticsClient, text: str) -> str | None:
+    print(text)
+    logging.info(text)
+
     names = recognize_names(client, text)
     if names == None:
         return None
+
+    print(names)
+    logging.info(names)
+
     text = replace_mapped(text, names)
+
+    print(text)
+    logging.info(text)
+
     return text
