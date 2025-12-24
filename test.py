@@ -106,6 +106,15 @@ class TestAnonymize(unittest.TestCase):
         text_out = pylanche.anonymize.anonymize_text(text) # output text
 
         self.assertEqual(text_out, text_ans)
+    
+    def test_replace_mapped(self):
+        text = "Konstantinos did a planche hold to press." # input text
+        map = {"Konstantinos": "XXXXXXXXXXXX"} # input dict
+        text_ans = "XXXXXXXXXXXX did a planche hold to press." # expected text
+
+        text_out = pylanche.anonymize.replace_mapped(text, map) # output text
+
+        self.assertEqual(text_out, text_ans)
 
 if __name__ == "__main__":
     unittest.main()
