@@ -31,19 +31,19 @@ def recognize_names(client: TextAnalyticsClient, text: str) -> dict[str, str] | 
         return None
 
 def anonymize(client: TextAnalyticsClient, text: str) -> str | None:
-    print(text)
-    logging.info(text)
+    print("Input text: {}".format(text))
+    logging.info("Input text: {}".format(text))
 
     names = recognize_names(client, text)
     if names == None:
         return None
 
-    print(names)
-    logging.info(names)
+    print("Anonymization map: {}".format(names))
+    logging.info("Anonymization map: {}".format(names))
 
     anonymized_text = replace_mapped(text, names)
 
-    print(anonymized_text)
-    logging.info(anonymized_text)
+    print("Anonymized text: {}".format(anonymized_text))
+    logging.info("Anonymized text: {}".format(anonymized_text))
 
     return anonymized_text
