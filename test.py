@@ -98,5 +98,14 @@ class TestProcess(unittest.TestCase):
 
         self.assertEqual(ret_out, ret_ans)
 
+class TestAnonymize(unittest.TestCase):
+    def test_anonymize_text(self):
+        text = "Konstantinos" # input text
+        text_ans = "XXXXXXXXXXXX" # expected text
+
+        text_out = pylanche.anonymize.anonymize_text(text) # output text
+
+        self.assertEqual(text_out, text_ans)
+
 if __name__ == "__main__":
     unittest.main()
