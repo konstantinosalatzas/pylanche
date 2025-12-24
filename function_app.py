@@ -23,10 +23,8 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     op = get_parameter(req, 'operation')
 
     if op not in ["receive", "send", "anonymize"]:
-        return func.HttpResponse(
-                "Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
-                status_code=400
-        )
+        return func.HttpResponse("Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
+                                 status_code=400)
 
     if op == "anonymize":
         text = get_parameter(req, 'text')
@@ -51,7 +49,5 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             return func.HttpResponse(anonymized_text)
     except Exception as error:
         logging.error(str(error))
-        return func.HttpResponse(
-                "The function failed to perform the operation, please check the logs.",
-                status_code=500
-        )
+        return func.HttpResponse("The function failed to perform the operation, please check the logs.",
+                                 status_code=500)
