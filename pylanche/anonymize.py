@@ -13,14 +13,16 @@ def anonymize_text(text: str) -> str:
 
 def recognize_names(client: TextAnalyticsClient, text: str) -> dict[str, str] | None:
     try:
-        result = client.recognize_entities(documents=[text])[0]
         anonymization = {} # Map names to their anonymized forms.
+        result = client.recognize_entities(documents=[text])[0]
+
         for entity in result['entities']:
             print("Text: {}, Category: {}, Subcategory: {}, Confidence Score: {}, Length: {}, Offset: {}".format(entity.text, entity.category, entity.subcategory, entity.confidence_score, entity.length, entity.offset))
             logging.info("Text: {}, Category: {}, Subcategory: {}, Confidence Score: {}, Length: {}, Offset: {}".format(entity.text, entity.category, entity.subcategory, entity.confidence_score, entity.length, entity.offset))
             if entity.category == "Person":
                 anonymized_text = anonymize_text(entity.text)
                 anonymization[entity.text] = anonymized_text
+
         return anonymization
     except Exception as error:
         logging.info(str(error))
