@@ -22,3 +22,5 @@ The configuration of Event Hub, checkpoint store, receive duration, send file an
 ## Extra features
 
 If the HTTP trigger is executed with the value `anonymize` as the input parameter `operation`, then it expects another input parameter `text` and performms anonymization of names contained in `text`, replacing them with masked values in the response text.
+
+The anonymization is performed with the Named Entity Recognition (NER) technique.
