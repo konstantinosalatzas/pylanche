@@ -52,10 +52,10 @@ class Client:
             credential = AzureKeyCredential(LANGUAGE_KEY)
             self.text_analytics_client = TextAnalyticsClient(endpoint=LANGUAGE_ENDPOINT, credential=credential)
 
-    def perform(self, op: str, param: str | None):
+    def perform(self, op: str, param: str | None) -> str | None:
         if op == "receive":
-            receive(self.consumer, self.RECEIVE_DURATION)
+            return receive(self.consumer, self.RECEIVE_DURATION)
         if op == "send":
-            send(self.producer, self.container_client, self.FILE_NAME, self.SEND_COUNT)
+            return send(self.producer, self.container_client, self.FILE_NAME, self.SEND_COUNT)
         if op == "anonymize":
-            anonymize(self.text_analytics_client, param)
+             return anonymize(self.text_analytics_client, param)
