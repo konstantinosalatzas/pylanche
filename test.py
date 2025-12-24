@@ -10,8 +10,7 @@ class TestFunctionApp(unittest.TestCase):
         request = func.HttpRequest(method="POST",
                                    body=None,
                                    url="/api/http_trigger",
-                                   params={"operation": "receive"}
-        ) # input request
+                                   params={"operation": "receive"}) # input request
 
         f = http_trigger.build().get_user_function()
         response = f(request) # output response
@@ -22,8 +21,7 @@ class TestFunctionApp(unittest.TestCase):
         request = func.HttpRequest(method="POST",
                                    body=None,
                                    url="/api/http_trigger",
-                                   params={"operation": "send"}
-        ) # input request
+                                   params={"operation": "send"}) # input request
 
         f = http_trigger.build().get_user_function()
         response = f(request) # output response
@@ -35,8 +33,7 @@ class TestFunctionApp(unittest.TestCase):
                                    body=None,
                                    url="/api/http_trigger",
                                    params={"operation": "anonymize",
-                                           "text": "Konstantinos did a planche hold to press."}
-        ) # input request
+                                           "text": "Konstantinos did a planche hold to press."}) # input request
 
         f = http_trigger.build().get_user_function()
         response = f(request) # output response
@@ -46,8 +43,7 @@ class TestFunctionApp(unittest.TestCase):
     def test_http_trigger_no_op(self):
         request = func.HttpRequest(method="POST",
                                    body="{}".encode(),
-                                   url="/api/http_trigger"
-        ) # input request
+                                   url="/api/http_trigger") # input request
 
         f = http_trigger.build().get_user_function()
         response = f(request) # output response
@@ -58,16 +54,16 @@ class TestFunctionApp(unittest.TestCase):
 
 class TestConfig(unittest.TestCase):
     def test_get_config_valid(self):
-        config = {"BLOB_STORAGE_CONNECTION_STRING": "value1",
-                  "BLOB_CONTAINER_NAME": "value2",
-                  "EVENT_HUB_CONNECTION_STRING": "value3",
-                  "EVENT_HUB_NAME": "value4",
-                  "RECEIVE_DURATION": "value5",
-                  "FILE_NAME": "value6",
-                  "SEND_COUNT": "value7",
-                  "LANGUAGE_KEY": "value8",
-                  "LANGUAGE_ENDPOINT": "value9"} # input dict
-        ret_ans = ("value1", "value2", "value3", "value4", "value5", "value6", "value7", "value8", "value9") # expected tuple
+        config = {"BLOB_STORAGE_CONNECTION_STRING": "val1",
+                  "BLOB_CONTAINER_NAME": "val2",
+                  "EVENT_HUB_CONNECTION_STRING": "val3",
+                  "EVENT_HUB_NAME": "val4",
+                  "RECEIVE_DURATION": "val5",
+                  "FILE_NAME": "val6",
+                  "SEND_COUNT": "val7",
+                  "LANGUAGE_KEY": "val8",
+                  "LANGUAGE_ENDPOINT": "val9"} # input dict
+        ret_ans = ("val1", "val2", "val3", "val4", "val5", "val6", "val7", "val8", "val9") # expected tuple
 
         ret_out = pylanche.utils.get_config(config) # output return
 
