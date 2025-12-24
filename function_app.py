@@ -20,14 +20,7 @@ def get_parameter(req: func.HttpRequest, param: str) -> str | None:
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("Python HTTP trigger function processed a request.")
 
-    op = req.params.get('operation')
-    if not op:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            logging.error("The request body does not contain valid JSON data.")
-        else:
-            op = req_body.get('operation')
+    op = get_parameter(req, 'operation')
 
     if op not in ["receive", "send", "anonymize"]:
         return func.HttpResponse(
