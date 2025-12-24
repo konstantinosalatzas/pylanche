@@ -5,6 +5,17 @@ import pylanche
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
+def get_parameter(req: func.HttpRequest, param: str) -> str | None:
+    val = req.params.get(param)
+    if not val:
+        try:
+            req_body = req.get_json()
+        except ValueError:
+            logging.error("The request body does not contain valid JSON data.")
+        else:
+            val = req_body.get(param)
+    return val
+
 @app.route(route="http_trigger")
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("Python HTTP trigger function processed a request.")
