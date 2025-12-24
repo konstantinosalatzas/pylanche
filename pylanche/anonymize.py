@@ -3,6 +3,7 @@ import logging
 from azure.ai.textanalytics import TextAnalyticsClient
 
 def replace_mapped(text: str, map: dict[str, str]) -> str:
+    # Replace names in text with their anonymized forms.
     for s in map:
         text = text.replace(s, map[s])
     return text
@@ -16,6 +17,7 @@ def recognize_names(client: TextAnalyticsClient, text: str) -> dict[str, str] | 
         anonymization = {} # Map names to their anonymized forms.
         result = client.recognize_entities(documents=[text])[0]
 
+        # Recognize named entities.
         for entity in result['entities']:
             print("Text: {}, Category: {}, Subcategory: {}, Confidence Score: {}, Length: {}, Offset: {}".format(entity.text, entity.category, entity.subcategory, entity.confidence_score, entity.length, entity.offset))
             logging.info("Text: {}, Category: {}, Subcategory: {}, Confidence Score: {}, Length: {}, Offset: {}".format(entity.text, entity.category, entity.subcategory, entity.confidence_score, entity.length, entity.offset))
