@@ -56,23 +56,6 @@ class TestFunctionApp(unittest.TestCase):
 
 # unit tests
 
-class TestProcess(unittest.TestCase):
-    def test_parse_valid(self):
-        message = '{"id": "test"}' # input JSON string message
-        data_ans = {"id": "test"} # expected dict
-
-        ret_out = pylanche.process.parse(message) # output return
-
-        self.assertEqual(ret_out, data_ans)
-
-    def test_parse_invalid(self):
-        message = "test" # input message
-        ret_ans = None # expected return
-
-        ret_out = pylanche.process.parse(message) # output return
-
-        self.assertEqual(ret_out, ret_ans)
-
 class TestConfig(unittest.TestCase):
     def test_get_config_valid(self):
         config = {"BLOB_STORAGE_CONNECTION_STRING": "value1",
@@ -95,6 +78,23 @@ class TestConfig(unittest.TestCase):
         ret_ans = None # expected return
 
         ret_out = pylanche.utils.get_config(config) # output return
+
+        self.assertEqual(ret_out, ret_ans)
+
+class TestProcess(unittest.TestCase):
+    def test_parse_valid(self):
+        message = '{"id": "test"}' # input JSON string message
+        data_ans = {"id": "test"} # expected dict
+
+        ret_out = pylanche.process.parse(message) # output return
+
+        self.assertEqual(ret_out, data_ans)
+
+    def test_parse_invalid(self):
+        message = "test" # input message
+        ret_ans = None # expected return
+
+        ret_out = pylanche.process.parse(message) # output return
 
         self.assertEqual(ret_out, ret_ans)
 
