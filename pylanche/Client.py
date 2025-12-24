@@ -52,7 +52,7 @@ class Client:
             credential = AzureKeyCredential(LANGUAGE_KEY)
             self.text_analytics_client = TextAnalyticsClient(endpoint=LANGUAGE_ENDPOINT, credential=credential)
 
-    def perform(self, op: str):
+    def perform(self, op: str, param: str | None):
         if op == "receive":
             receive(self.consumer, self.RECEIVE_DURATION)
         if op == "send":

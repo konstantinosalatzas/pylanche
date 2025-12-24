@@ -37,7 +37,12 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     try:
         # Create a client and perform the operation.
         client = pylanche.Client(op)
-        client.perform(op)
+        
+        if op in ["receive", "send"]:
+            client.perform(op, None)
+        if op == "anonymize":
+            client.perform(op, text)
+        
         if op == "receive":
             return func.HttpResponse("The function received events from the event hub.")
         if op == "send":
