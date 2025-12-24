@@ -18,3 +18,7 @@ The HTTP trigger expects the input parameter `operation` with the value `receive
 The configuration of Event Hub, checkpoint store, receive duration, send file and send count is done with environment variables or the JSON file:
 
 [pylanche/config.json](https://github.com/konstantinosalatzas/pylanche/blob/main/pylanche/config_template.json)
+
+## Extra features
+
+If the HTTP trigger is executed with the value `anonymize` as the input parameter `operation`, then it expects another input parameter `text` and performms anonymization of names contained in `operation`, replacing them with masked values in the response text.
