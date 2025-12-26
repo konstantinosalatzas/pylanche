@@ -10,7 +10,8 @@ class TestFunctionApp(unittest.TestCase):
         request = func.HttpRequest(method="POST",
                                    body=None,
                                    url="/api/http_trigger",
-                                   params={"operation": "receive"}) # input request
+                                   params={"operation": "receive",
+                                           "duration": 3}) # input request
 
         f = http_trigger.build().get_user_function()
         response = f(request) # output response
