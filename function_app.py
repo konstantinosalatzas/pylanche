@@ -46,7 +46,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             if ret == None:
                 return func.HttpResponse("The function failed to perform the operation, please check the logs.",
                                          status_code=500)
-            return func.HttpResponse(ret)
+            return func.HttpResponse(ret) # Respond with the anonymized text.
     except Exception as error:
         logging.error(str(error))
         return func.HttpResponse("The function failed to perform the operation, please check the logs.",
