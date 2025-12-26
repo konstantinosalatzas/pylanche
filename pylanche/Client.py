@@ -15,7 +15,7 @@ from pylanche.anonymize import anonymize
 class Client:
     def __init__(self, op: str):
         config = get_config_from_environ_or_file()
-        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, FILE_NAME, SEND_COUNT, LANGUAGE_KEY, LANGUAGE_ENDPOINT) = config
+        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, FILE_NAME, LANGUAGE_KEY, LANGUAGE_ENDPOINT) = config
         logging.info("Got the configuration values.")
 
         if op == "receive":
