@@ -26,6 +26,8 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         return func.HttpResponse("Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
                                  status_code=400)
 
+    if op == "send":
+        count = get_parameter(req, 'count')
     if op == "anonymize":
         text = get_parameter(req, 'text')
 
