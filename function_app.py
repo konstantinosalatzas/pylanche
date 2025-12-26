@@ -26,6 +26,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         return func.HttpResponse("The request parameter combination is not supported.",
                                  status_code=400)
 
+    # Get the operation-specific input parameter.
     if op == "receive":
         param = get_parameter(req, 'duration')
     if op == "send":
