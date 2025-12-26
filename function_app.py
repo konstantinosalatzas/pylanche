@@ -38,7 +38,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         client = pylanche.Client(op)
         
         if op == "receive":
-            client.perform(op, None)
+            client.perform(op, duration)
         if op == "send":
             client.perform(op, count)
         if op == "anonymize":
