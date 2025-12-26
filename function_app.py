@@ -14,7 +14,7 @@ def get_parameter(req: func.HttpRequest, param: str) -> str | None:
             logging.error("The request body does not contain valid JSON data.")
         else:
             val = req_body.get(param)
-    return val
+    return str(val)
 
 @app.route(route="http_trigger")
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
