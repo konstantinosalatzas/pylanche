@@ -10,7 +10,7 @@ with open("./pylanche/config.json", "r") as config_file:
 # Prepare the request URL to perform the receive operation.
 app_name = config['APP_NAME']
 function_name = config['FUNCTION_NAME']
-url = "https://{}.azurewebsites.net/api/{}?operation=receive".format(app_name, function_name)
+url = "https://{}.azurewebsites.net/api/{}?operation=receive&duration=3".format(app_name, function_name)
 
 # Repeat performing the receive operation.
 while True:
