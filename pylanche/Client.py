@@ -31,8 +31,6 @@ class Client:
                 checkpoint_store=checkpoint_store
             )
 
-            self.RECEIVE_DURATION = RECEIVE_DURATION
-
         if op == "send":
             # Create a producer client to send events to the event hub.
             self.producer = EventHubProducerClient.from_connection_string(
@@ -52,7 +50,7 @@ class Client:
 
     def perform(self, op: str, param: None | str) -> None | str:
         if op == "receive":
-            return receive(self.consumer, self.RECEIVE_DURATION)
+            return receive(self.consumer, param)
         if op == "send":
             return send(self.producer, self.container_client, self.FILE_NAME, param)
         if op == "anonymize":
