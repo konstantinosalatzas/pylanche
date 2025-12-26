@@ -35,8 +35,10 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         # Create a client and perform the operation.
         client = pylanche.Client(op)
         
-        if op in ["receive", "send"]:
+        if op == "receive":
             client.perform(op, None)
+        if op == "send":
+            client.perform(op, count)
         if op == "anonymize":
             anonymized_text = client.perform(op, text)
         
