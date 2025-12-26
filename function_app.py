@@ -23,7 +23,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     op = get_parameter(req, 'operation')
 
     if op not in ["receive", "send", "anonymize"]:
-        return func.HttpResponse("Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
+        return func.HttpResponse("The request parameter combination is not supported.",
                                  status_code=400)
 
     if op == "receive":
