@@ -44,8 +44,6 @@ class Client:
             # Create container client.
             self.container_client = blob_service_client.get_container_client(container=BLOB_CONTAINER_NAME)
             self.FILE_NAME = FILE_NAME
-
-            self.SEND_COUNT = SEND_COUNT
         
         if op == "anonymize":
             # Create and authenticate client.
@@ -56,6 +54,6 @@ class Client:
         if op == "receive":
             return receive(self.consumer, self.RECEIVE_DURATION)
         if op == "send":
-            return send(self.producer, self.container_client, self.FILE_NAME, self.SEND_COUNT)
+            return send(self.producer, self.container_client, self.FILE_NAME, param)
         if op == "anonymize":
              return anonymize(self.text_analytics_client, param)
