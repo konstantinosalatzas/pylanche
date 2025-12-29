@@ -11,6 +11,11 @@ It is deployed to a Function App with an HTTP trigger to:
 
 The HTTP trigger expects the input parameter `operation` with the value `receive` or `send` of the operation to perform.
 
+If the value of `operation` is:
+
+* `receive`, then another input parameter `duration` is expected with the receive time duration in seconds.
+* `send`, then another input parameter `count` is expected with the number of events to send.
+
 ## Configuration
 
 The configuration of Event Hub, checkpoint store and send file is done with environment variables or the JSON file:
