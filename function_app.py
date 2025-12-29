@@ -5,9 +5,10 @@ import pylanche
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
+# Map the value of the operation input parameter to the name of the combined input parameter.
 op_to_param = {"receive": "duration",
                "send": "count",
-               "anonymize": "text"} # Map the value of the operation input parameter to the name of the combined input parameter.
+               "anonymize": "text"}
 
 def get_parameter(req: func.HttpRequest, param: str) -> str | None:
     val = req.params.get(param)
