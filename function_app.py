@@ -14,7 +14,7 @@ def get_parameter(req: func.HttpRequest, param: str) -> str | None:
             logging.error("The request body does not contain valid JSON data.")
         else:
             val = req_body.get(param)
-    return val
+    return str(val)
 
 @app.route(route="http_trigger")
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
@@ -23,30 +23,31 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     op = get_parameter(req, 'operation')
 
     if op not in ["receive", "send", "anonymize"]:
-        return func.HttpResponse("Pass 'operation' with 'receive' or 'send' value in the query string or in the request body.",
+        return func.HttpResponse("The request parameter combination is not supported.",
                                  status_code=400)
 
+    # Get the operation-specific input parameter.
+    if op == "receive":
+        param = get_parameter(req, 'duration')
+    if op == "send":
+        param = get_parameter(req, 'count')
     if op == "anonymize":
-        text = get_parameter(req, 'text')
+        param = get_parameter(req, 'text')
 
     try:
         # Create a client and perform the operation.
         client = pylanche.Client(op)
-        
-        if op in ["receive", "send"]:
-            client.perform(op, None)
-        if op == "anonymize":
-            anonymized_text = client.perform(op, text)
+        ret = client.perform(op, param)
         
         if op == "receive":
             return func.HttpResponse("The function received events from the event hub.")
         if op == "send":
             return func.HttpResponse("The function sent events to the event hub.")
         if op == "anonymize":
-            if anonymized_text == None:
+            if ret == None:
                 return func.HttpResponse("The function failed to perform the operation, please check the logs.",
                                          status_code=500)
-            return func.HttpResponse(anonymized_text)
+            return func.HttpResponse(ret) # Respond with the anonymized text.
     except Exception as error:
         logging.error(str(error))
         return func.HttpResponse("The function failed to perform the operation, please check the logs.",

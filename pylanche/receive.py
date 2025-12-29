@@ -16,8 +16,8 @@ async def on_event(partition_context, event):
     data = parse(message)
 
     if data != None:
-        print("Parsed the message: {}".format(str(data)))
-        logging.info("Parsed the message: {}".format(str(data)))
+        print("Parsed the message: {}".format(data))
+        logging.info("Parsed the message: {}".format(data))
     
     # Update the checkpoint so that the program doesn't read the events that it has already read when it runs next time.
     await partition_context.update_checkpoint(event)
@@ -31,9 +31,9 @@ async def on_error(partition_context, error):
         print("An exception: {} occurred during the load balance process.".format(error))
         logging.info("An exception: {} occurred during the load balance process.".format(error))
 
-async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
-    print("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
-    logging.info("Consumer will keep receiving for {} seconds.".format(RECEIVE_DURATION))
+async def main(consumer: EventHubConsumerClient, duration: str):
+    print("Consumer will keep receiving for {} seconds.".format(duration))
+    logging.info("Consumer will keep receiving for {} seconds.".format(duration))
 
     async with consumer:
         task = asyncio.ensure_future(
@@ -43,11 +43,11 @@ async def main(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
                 starting_position="-1",  # "-1" is from the beginning of the partition.
             )
         )
-        await asyncio.sleep(int(RECEIVE_DURATION))
+        await asyncio.sleep(int(duration))
     await task
 
     print("Consumer has stopped receiving.")
     logging.info("Consumer has stopped receiving.")
 
-def receive(consumer: EventHubConsumerClient, RECEIVE_DURATION: str):
-    asyncio.run(main(consumer, RECEIVE_DURATION))
+def receive(consumer: EventHubConsumerClient, duration: str):
+    asyncio.run(main(consumer, duration))

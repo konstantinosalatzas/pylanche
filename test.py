@@ -10,7 +10,8 @@ class TestFunctionApp(unittest.TestCase):
         request = func.HttpRequest(method="POST",
                                    body=None,
                                    url="/api/http_trigger",
-                                   params={"operation": "receive"}) # input request
+                                   params={"operation": "receive",
+                                           "duration": 3}) # input request
 
         f = http_trigger.build().get_user_function()
         response = f(request) # output response
@@ -21,7 +22,8 @@ class TestFunctionApp(unittest.TestCase):
         request = func.HttpRequest(method="POST",
                                    body=None,
                                    url="/api/http_trigger",
-                                   params={"operation": "send"}) # input request
+                                   params={"operation": "send",
+                                           "count": 3}) # input request
 
         f = http_trigger.build().get_user_function()
         response = f(request) # output response
@@ -58,12 +60,10 @@ class TestConfig(unittest.TestCase):
                   "BLOB_CONTAINER_NAME": "val2",
                   "EVENT_HUB_CONNECTION_STRING": "val3",
                   "EVENT_HUB_NAME": "val4",
-                  "RECEIVE_DURATION": "val5",
-                  "FILE_NAME": "val6",
-                  "SEND_COUNT": "val7",
-                  "LANGUAGE_KEY": "val8",
-                  "LANGUAGE_ENDPOINT": "val9"} # input dict
-        ret_ans = ("val1", "val2", "val3", "val4", "val5", "val6", "val7", "val8", "val9") # expected tuple
+                  "FILE_NAME": "val5",
+                  "LANGUAGE_KEY": "val6",
+                  "LANGUAGE_ENDPOINT": "val7"} # input dict
+        ret_ans = ("val1", "val2", "val3", "val4", "val5", "val6", "val7") # expected tuple
 
         ret_out = pylanche.utils.get_config(config) # output return
 

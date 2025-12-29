@@ -15,7 +15,7 @@ from pylanche.anonymize import anonymize
 class Client:
     def __init__(self, op: str):
         config = get_config_from_environ_or_file()
-        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, RECEIVE_DURATION, FILE_NAME, SEND_COUNT, LANGUAGE_KEY, LANGUAGE_ENDPOINT) = config
+        (BLOB_STORAGE_CONNECTION_STRING, BLOB_CONTAINER_NAME, EVENT_HUB_CONNECTION_STRING, EVENT_HUB_NAME, FILE_NAME, LANGUAGE_KEY, LANGUAGE_ENDPOINT) = config
         logging.info("Got the configuration values.")
 
         if op == "receive":
@@ -31,8 +31,6 @@ class Client:
                 checkpoint_store=checkpoint_store
             )
 
-            self.RECEIVE_DURATION = RECEIVE_DURATION
-
         if op == "send":
             # Create a producer client to send events to the event hub.
             self.producer = EventHubProducerClient.from_connection_string(
@@ -44,8 +42,6 @@ class Client:
             # Create container client.
             self.container_client = blob_service_client.get_container_client(container=BLOB_CONTAINER_NAME)
             self.FILE_NAME = FILE_NAME
-
-            self.SEND_COUNT = SEND_COUNT
         
         if op == "anonymize":
             # Create and authenticate client.
@@ -54,8 +50,8 @@ class Client:
 
     def perform(self, op: str, param: None | str) -> None | str:
         if op == "receive":
-            return receive(self.consumer, self.RECEIVE_DURATION)
+            return receive(self.consumer, param)
         if op == "send":
-            return send(self.producer, self.container_client, self.FILE_NAME, self.SEND_COUNT)
+            return send(self.producer, self.container_client, self.FILE_NAME, param)
         if op == "anonymize":
              return anonymize(self.text_analytics_client, param)
