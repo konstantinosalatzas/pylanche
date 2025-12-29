@@ -13,7 +13,7 @@ The HTTP trigger expects the input parameter `operation` with the value `receive
 
 If the value of `operation` is:
 
-* `receive`, then another input parameter `duration` is expected with the receive time duration in seconds.
+* `receive`, then another input parameter `duration` is expected with the number of seconds to receive.
 * `send`, then another input parameter `count` is expected with the number of events to send.
 
 ## Configuration
