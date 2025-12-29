@@ -36,7 +36,6 @@ class Client:
             self.producer = EventHubProducerClient.from_connection_string(
                 conn_str=EVENT_HUB_CONNECTION_STRING, eventhub_name=EVENT_HUB_NAME
             )
-
             # Connect to storage account.
             blob_service_client = BlobServiceClient.from_connection_string(BLOB_STORAGE_CONNECTION_STRING)
             # Create container client.
