@@ -32,13 +32,8 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
                                  status_code=400)
 
     # Get the operation-specific input parameter.
-    if op == "receive":
-        param = get_parameter(req, 'duration')
-    if op == "send":
-        param = get_parameter(req, 'count')
-    if op == "anonymize":
-        param = get_parameter(req, 'text')
-
+    param = get_parameter(req, op_to_param[op])
+ 
     try:
         # Create a client and perform the operation.
         client = pylanche.Client(op)
