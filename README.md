@@ -26,4 +26,6 @@ The configuration of Event Hub, checkpoint store and send file is done with envi
 
 If the HTTP trigger is executed with the value `anonymize` as the input parameter `operation`, then it expects another input parameter `text` and performs anonymization of names contained in `text`, replacing them with masked values in the response text.
 
-The anonymization is performed with the [Named Entity Recognition (NER)](https://learn.microsoft.com/en-us/azure/ai-services/language-service/named-entity-recognition/overview) technique.
+The anonymization is performed with the Azure Language service and the [Named Entity Recognition (NER)](https://learn.microsoft.com/en-us/azure/ai-services/language-service/named-entity-recognition/overview) technique.
+
+The configuration of the Azure Language service is done with environment variables or the configuration JSON file.
