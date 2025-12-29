@@ -7,8 +7,6 @@ It is deployed to a Function App with an HTTP trigger to:
 * receive events from an Event Hub for a time duration with an Azure Blob Storage container as a checkpoint store or
 * send a number of events and the data read from a CSV file stored in an Azure Blob Storage container as events to an Event Hub
 
-If a received event message is in JSON format, then it is processed (parsed to dictionary).
-
 ## Input
 
 The HTTP trigger expects the input parameter `operation` with the value `receive` or `send` of the operation to perform.
