@@ -9,7 +9,7 @@ It is deployed to a Function App with an HTTP trigger to:
 
 ## Input parameters
 
-The HTTP trigger expects the input parameter `operation` with the value `receive` or `send` of the operation to perform and another input parameter which is specific to the operation to be performed.
+The HTTP trigger expects the input parameter `operation` with the value `receive` or `send` of the operation to perform and another input parameter that is specific to the operation to be performed.
 
 If the value of `operation` is:
 
